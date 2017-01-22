@@ -1,0 +1,231 @@
+/**
+ * qin.admin.css CSS3 file
+ *
+ * 后台的样式文件
+ *
+ * @author  MrQin
+ * @copyright   Copyright (c) 2016 - 2017 , Qinblog
+ * @license http://opensource.org/licenses/MIT  MIT License
+ * @link    http://www.qinblog.net
+ * @version 1.0.0
+ * @since   1.0.0
+ * @filesource
+ */
+
+html {
+    height:auto;
+    background-color: #424852;
+}
+
+/* ========================================================================
+   设置网页内容最小高度
+ ========================================================================== */
+@media screen and (max-height:1920px) {
+  #load_content {
+    height:auto;
+    min-height: 1400px;
+  }
+}
+@media screen and (max-height:1200px) {
+  #load_content {
+    height:auto;
+    min-height: 800px;
+  }
+}
+@media screen and (max-height:1080px) {
+  #load_content {
+    height:auto;
+    min-height: 650px;
+  }
+}
+@media screen and (max-width:768px) {
+  #load_content {
+    height:auto;
+    min-height: 680px;
+  }
+}
+@media screen and (max-width:480px) {
+  #load_content {
+    height:auto;
+    min-height: 450px;
+  }
+}
+
+/* ========================================================================
+   鼠标选中样式
+ ========================================================================== */
+::selection {
+    background:#2980B9; 
+    color:#fff;
+}
+
+::-moz-selection {
+    background:#2980B9; 
+    color:#fff;
+}
+
+::-webkit-selection {
+    background:#2980B9; 
+    color:#fff;
+}
+
+/* ========================================================================
+   布局相关内外间距设置、小分辨率设备自适应
+ ========================================================================== */
+/* body container */
+.body-content .uk-container {
+  max-width: 1440px;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+
+/* panel margin padding */
+.uk-navbar,
+.uk-panel-box,
+.uk-panel-box .uk-panel-teaser {
+  border-radius: 1px;
+}
+
+.uk-panel-title {
+  font-size: 14px;
+}
+
+/* navbar */
+.uk-navbar {
+  margin-bottom: 15px;
+}
+
+/* 小屏幕设备距离调试 */
+@media screen and (max-width:768px) {
+  .uk-grid {
+    margin: 0;
+  }
+  .uk-grid > * {
+    padding: 0;
+  }
+  .body-content .uk-container {
+    margin: 0;
+    padding: 0px;
+  }
+  .uk-grid + .uk-grid, .uk-grid-margin, .uk-grid > * > .uk-panel + .uk-panel {
+    margin-top: 0px;
+  }
+  .uk-navbar {
+    margin-bottom: 0;
+  }
+
+}
+
+
+
+/* ========================================================================
+   dashboard 数据统计样式
+ ========================================================================== */
+#data_count > span {
+  cursor: pointer;
+  display: inline-block;
+  border: 1px #ddd solid;
+  border-radius: 3px;
+  padding: 5px;
+  margin:5px;
+  background-color: #eee;
+}
+
+
+/* ========================================================================
+   超链接样式
+ ========================================================================== */
+a {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  text-decoration:none;
+  color: #16A085;
+}
+a:hover {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  text-decoration:none;
+  color: #2980B9;
+}
+a:active {
+  text-decoration:none;
+  color: #BDC3C7;
+}
+/* 脚部超链接颜色 */
+.tm-footer a,
+.tm-footer a:link,
+.tm-footer a:visited
+{
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  text-decoration:none;
+  color: #16A085;
+}
+
+/* ========================================================================
+   位置导航样式  
+ ========================================================================== */
+.position {
+  font-weight: bold; 
+}
+
+/* ========================================================================
+   UIKIT 按钮、分页样式重写 
+ ========================================================================== */
+
+/* 分页选中按钮颜色 */
+.uk-pagination > .uk-active > span {
+  background: #424852;
+}
+
+/* 按钮样式 */
+.uk-button-primary {
+  background-color: #2980B9;
+  color: #ffffff;
+}
+/* Hover */
+.uk-button-primary:hover,
+.uk-button-primary:focus {
+  background-color: #16A085;
+  color: #ffffff;
+}
+/* Active */
+.uk-button-primary:active,
+.uk-button-primary.uk-active {
+  background-color: #bdc3c7;
+  color: #ffffff;
+}
+/*
+ * Modifier: `uk-button-success`
+ */
+.uk-button-success {
+  background-color: #27ae60;
+  color: #ffffff;
+}
+/* Hover */
+.uk-button-success:hover,
+.uk-button-success:focus {
+  background-color: #16A085;
+  color: #ffffff;
+}
+/* Active */
+.uk-button-success:active,
+.uk-button-success.uk-active {
+  background-color: #72ae41;
+  color: #ffffff;
+}
+
+/* ========================================================================
+   脚部样式  
+ ========================================================================== */
+.tm-footer {
+  background-color: #111;
+  padding: 20px;
+  color: #aaa;
+}

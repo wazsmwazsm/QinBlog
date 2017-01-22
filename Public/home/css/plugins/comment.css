@@ -1,0 +1,200 @@
+/**
+ * comment.css CSS3 file
+ *
+ * 评论系统的样式文件
+ *
+ * @author  MrQin
+ * @copyright   Copyright (c) 2016 - 2017 , Qinblog
+ * @license http://opensource.org/licenses/MIT  MIT License
+ * @link    http://www.qinblog.net
+ * @version 1.0.0
+ * @since   1.0.0
+ * @filesource
+ */
+
+/* ========================================================================
+   回复框、评论框样式
+ ========================================================================== */
+#comment #reply_dialog {
+  display: none;
+}
+
+/* dialog style */
+#comment > #comment_dialog > .comment-text, 
+#comment #reply_dialog > .comment-text {
+  width:100%;
+  height: 100px;
+  border: 1px solid #dadada;
+  border-radius: 5px 5px 0 0;
+  overflow: auto;
+}
+
+/* ========================================================================
+   工具栏样式(提交、添加标签按键等)
+ ========================================================================== */
+#comment > #comment_dialog > .comment-tool,
+#comment #reply_dialog > .comment-tool {
+  padding: 0px;
+  width:100%;
+  border:1px solid #dadada;
+  border-radius: 0 0 5px 5px;
+  background-color: #dadada;
+
+}
+#comment > #comment_dialog > .comment-tool > .button-face,
+#comment #reply_dialog > .comment-tool > .button-face {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  display: inline-block;
+  border:1px solid #dadada;
+  border-radius: 3px;
+  padding:3px 6px;
+  cursor: pointer;
+}
+#comment > #comment_dialog > .comment-tool > .button-face:hover,
+#comment #reply_dialog > .comment-tool > .button-face:hover {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  color: #fafafa;
+}
+#comment > #comment_dialog > .comment-tool > .button-submit,
+#comment #reply_dialog > .comment-tool > .button-submit {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  display: inline-block;
+  color: #16A085;
+  float: right;
+  border:1px solid #dadada;
+  border-radius: 0 0 5px 0;
+  padding:3px 6px;
+  cursor: pointer;
+}
+#comment > #comment_dialog > .comment-tool > .button-submit:hover,
+#comment #reply_dialog > .comment-tool > .button-submit:hover {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  background-color: #444444;
+  border:1px solid #444444;
+  border-radius: 0 0 5px 0;
+  color: #ffffff;
+}
+
+/* ========================================================================
+   表情框样式
+ ========================================================================== */
+#comment > #comment_dialog > .comment-tool > .facebox,
+#comment #reply_dialog > .comment-tool > .facebox {
+ position:absolute;
+ background: #fafafa;
+ display: none;
+ width: 480px;
+ height: 120px;
+ border: 2px solid #dadada;
+ padding-top:20px;
+ overflow: auto;
+ box-shadow: 1px 1px 1px #dadada;
+}
+
+@media screen and (max-width:920px) {
+  #comment > #comment_dialog > .comment-tool > .facebox, 
+  #comment #reply_dialog > .comment-tool > .facebox {
+   position:absolute;
+   background: #fafafa;
+   display: none;
+   width: 360px;
+   height: 100px;
+   border: 2px solid #dadada;
+   padding-top:20px;
+   overflow: auto;
+   box-shadow: 1px 1px 1px #dadada;
+  }
+}
+
+@media screen and (max-width:480px) {
+  #comment > #comment_dialog > .comment-tool > .facebox,
+  #comment #reply_dialog > .comment-tool > .facebox {
+   position:absolute;
+   background: #fafafa;
+   display: none;
+   width: 270px;
+   height: 100px;
+   border: 2px solid #dadada;
+   padding-top:20px;
+   overflow: auto;
+   box-shadow: 1px 1px 1px #dadada;
+  }
+}
+
+#comment > #comment_dialog > .comment-tool > .facebox ul,
+#comment #reply_dialog > .comment-tool > .facebox ul {
+  padding: 0px;margin: 0px;
+}
+
+#comment > #comment_dialog > .comment-tool > .facebox li,
+#comment #reply_dialog > .comment-tool > .facebox li {
+  float: left;
+  list-style-type: none;
+  padding: 3px;
+  cursor: pointer;
+}
+
+
+
+/* ========================================================================
+   回复评论按钮样式
+ ========================================================================== */
+#comment > #comment_list .reply {
+  cursor: pointer;
+}
+#comment > #comment_list .reply:hover {
+  color: #16A085;
+}
+#comment > #comment_list .reply-list {
+  cursor: pointer;
+}
+#comment > #comment_list .reply-list:hover {
+  color: #16A085;
+}
+#comment > #comment_list .like {
+  cursor: pointer;
+}
+#comment > #comment_list .like:hover {
+  color: #16A085;
+}
+
+.like_plus {
+  position: absolute;
+  color: #16A085;
+}
+
+/* ========================================================================
+   排序按钮样式
+ ========================================================================== */
+#comment #comment_sort span {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  background-color: #16A085;
+  border-radius: 3px;
+  padding: 4px;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 12px;
+}
+#comment #comment_sort span:hover {
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  background-color: #fafafa;
+  color: #16A085;
+}

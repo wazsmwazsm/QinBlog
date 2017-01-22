@@ -1,0 +1,874 @@
+/**
+ * qin.css CSS3 file
+ *
+ * 前台的样式文件
+ *
+ * @author  MrQin
+ * @copyright   Copyright (c) 2016 - 2017 , Qinblog
+ * @license http://opensource.org/licenses/MIT  MIT License
+ * @link    http://www.qinblog.net
+ * @version 1.0.0
+ * @since   1.0.0
+ * @filesource
+ */
+
+html {
+    height:auto;
+    background-color: #424852;
+    font-family:"lthj";
+}
+
+/* ========================================================================
+   设置网页内容最小高度
+ ========================================================================== */
+@media screen and (max-height:1920px) {
+  section {
+    height:auto;
+    min-height: 1300px;
+  }
+}
+@media screen and (max-height:1200px) {
+  section {
+    height:auto;
+    min-height: 730px;
+  }
+}
+@media screen and (max-height:1080px) {
+  section {
+    height:auto;
+    min-height: 562px;
+  }
+}
+@media screen and (max-width:768px) {
+  section {
+    height:auto;
+    min-height: 680px;
+  }
+}
+
+/* ========================================================================
+   鼠标选中样式
+ ========================================================================== */
+::selection {
+    background:#39a7ec; 
+    color:#fff;
+}
+
+::-moz-selection {
+    background:#39a7ec; 
+    color:#fff;
+}
+
+::-webkit-selection {
+    background:#39a7ec; 
+    color:#fff;
+}
+
+/* ========================================================================
+   字体
+ ========================================================================== */
+@font-face { 
+  font-family: 'lthj'; 
+  src: url('/Public/font/lthj.ttf'); 
+} 
+
+/* ========================================================================
+   超链接样式
+ ========================================================================== */
+a,
+a:link,
+a:visited { 
+  text-decoration:none;
+  color: #16A085;
+}
+a:hover, a:active {
+  /* 调用动画 */
+  -webkit-animation-name: qin-a-duarition;
+  animation-name: qin-a-duarition;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode : forwards;
+  -webkit-animation-timing-function: linear !important;
+  animation-timing-function: linear !important;
+  
+}
+
+
+/* ========================================================================
+   布局相关内外间距设置、小分辨率设备自适应
+ ========================================================================== */
+/* nav 、container margin padding */
+section .uk-container {
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+/* panel margin padding */
+.uk-panel-box,
+.uk-panel-box .uk-panel-teaser {
+  border-radius: 1px;
+}
+
+.uk-grid + .uk-grid, .uk-grid-margin, .uk-grid > * > .uk-panel + .uk-panel {
+    margin-top: 10px;
+}
+.uk-width-medium-2-3 .uk-panel-box {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  
+}
+/* 位置导航 */
+.position {
+  background-color: #fafafa;
+  padding: 5px 5px 5px 10px;
+  border:1px solid #dddddd;
+  border-radius: 1px;
+  margin-bottom: 15px;
+}
+
+/* 幻灯片轮播 */
+#carousel {
+  margin-bottom: 15px;
+}
+
+/* 小屏幕设备距离调试 */
+@media screen and (max-width:768px) {
+  .uk-grid {
+    margin: 0;
+  }
+  .uk-grid > * {
+    padding: 0px;
+  }
+  section .uk-container {
+    margin: 0;
+    padding: 0px;
+  }
+  .uk-grid + .uk-grid, .uk-grid-margin, .uk-grid > * > .uk-panel + .uk-panel {
+    margin-top: 0px;
+  }
+  .position {
+    background-color: #fafafa;
+    padding: 5px 5px 5px 10px;
+    border:1px solid #dddddd;
+    border-radius: 1px;
+    margin-bottom: 0px;
+  }
+  .uk-pagination {
+    padding-bottom: 10px;
+  }
+  #carousel {
+    margin-bottom: 0px;
+  }
+}
+
+/* ========================================================================
+   Brand
+ ========================================================================== */
+.brand, #particles-js {
+  width: 100%;
+  height:120px;
+  background-color: #424852;
+}
+#brand #brand_img{
+  cursor: pointer;
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  top: 20px;
+  left: 40%;
+}
+#brand #brand_img:hover {
+  /* 调用动画 */
+  -webkit-animation-name: qin-brand-pic-duraition;
+  animation-name: qin-brand-pic-duarition;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode : forwards;
+  -webkit-animation-timing-function: linear !important;
+  animation-timing-function: linear !important;
+}
+
+#brand #brand_name {
+  cursor: pointer;
+  color: #fff;
+  font-size: 20px;
+  
+}
+
+#brand #brand_tip:hover,
+#brand #brand_tip:hover #brand_name {
+  -webkit-animation-name: qin-brand-duarition;
+  animation-name: qin-brand-duarition;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode : forwards;
+  -webkit-animation-timing-function: ease-in-out !important;
+  animation-timing-function: ease-in-out !important;
+}
+
+#brand #brand_tip {
+  cursor: pointer;
+  position: absolute;
+  color: #fff;
+  font-size: 16px;
+  top: 50px;
+  left: 50%;
+}
+
+/* ========================================================================
+    UIKIT 分页重写样式
+ ========================================================================== */
+.uk-pagination > .uk-active > span {
+  background: #424852;
+}
+
+/* ========================================================================
+    UIKIT Navbar 重写样式
+ ========================================================================== */
+.uk-navbar {
+  background: rgba(17,24,31,0.8);
+  color: #FFFFFF;
+  border: 0px solid rgba(0, 0, 0, 0.06);
+  border-radius: 4px;
+}
+
+.uk-navbar-nav > li > a {
+   
+  display: block;
+  box-sizing: border-box;
+  text-decoration: none;
+
+  height: 51px;
+  padding: 0 15px;
+  line-height: 50px;
+
+  color: #BDC3C7;
+  font-size:18px;
+  font-family: "微软雅黑", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  margin-top: -1px;
+  margin-left: -1px;
+  border: 0px solid #000;
+  border-bottom-width: 0;
+  text-shadow: 0 0px 0 #000000;
+}
+
+.uk-navbar-nav > li:hover > a,
+.uk-navbar-nav > li > a:focus,
+.uk-navbar-nav > li.uk-open > a {
+  /* 调用动画 */
+  -webkit-animation-name: qin-nav-duarition;
+  animation-name: qin-nav-duarition;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode : forwards;
+  -webkit-animation-timing-function: ease-out !important;
+  animation-timing-function: ease-out !important;
+}
+
+/* Active */
+.uk-navbar-nav > li.uk-active > a {
+  background-color: #424852;
+  color: #FFFFFF;
+  border-left-color: rgba(0, 0, 0, 0.5);
+  border-right-color: rgba(0, 0, 0, 0.5);
+  border-top-color: rgba(0, 0, 0, 0);
+  border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.uk-navbar-content,
+.uk-navbar-brand,
+.uk-navbar-toggle {
+  box-sizing: border-box;
+  display: block;
+  height: 51px;
+  padding: 0 15px;
+  float: left;
+  margin-top: -1px;
+  text-shadow: 0 0px 0 #ffffff;
+}
+
+/* Sub-object: `uk-navbar-toggle`
+ ========================================================================== */
+.uk-navbar-toggle {
+  font-size: 18px;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.uk-navbar-toggle:hover,
+.uk-navbar-toggle:focus {
+  color: #FFFFFF;
+  text-decoration: none;
+  /* 2 */
+  outline: none;
+}
+
+/* ========================================================================
+    搜索框样式
+ ========================================================================== */
+.search {
+  background-color: #E1E1E1;
+  border-radius:90px;
+}
+
+.search:focus {
+  background-color: #fff;
+}
+
+/* ========================================================================
+    返回顶部控件样式
+ ========================================================================== */
+#back_top {
+
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+
+  cursor: pointer;
+  opacity:0.7;
+  display: none;
+  position: fixed;
+  z-index: 9999; /* 最顶层 */
+  bottom: 2%;
+  right: 5%;
+  background-color: #00aeef;
+  padding: 5px;
+  border: 1px solid #00aeef;
+  border-radius: 5px;
+   
+}
+#back_top:hover {
+
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -ms-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  opacity:1;
+  background-color: #27ae60;
+  border: 1px solid white;
+}
+.uk-icon-arrow-up {
+  color:white;
+}
+
+
+/* ========================================================================
+    导航栏下拉菜单样式
+ ========================================================================== */
+.dropdown > ul {
+  height: 0; /* 为了隐藏ul */
+  position: absolute;
+  z-index: 1020;
+  box-sizing: border-box;
+  background:rgba(0,0,0,0);
+  width: 120px;
+  padding: 0px;
+  color: #fff;
+}
+
+.dropdown > ul > li {
+  opacity: 0;
+  list-style-type:none;
+  -webkit-transform: rotate3d(10,2,1,270deg);
+  -moz-transform: rotate3d(10,2,1,270deg);
+  -ms-transform: rotate3d(10,2,1,270deg);
+  -o-transform: rotate3d(10,2,1,270deg);
+  transform: rotate3d(10,2,1,270deg);
+
+  -webkit-transition: opacity .4s, -webkit-transform .5s;
+  -moz-transition: opacity .4s, -moz-transform .5s;
+  -ms-transition: opacity .4s, -ms-transform .5s;
+  -o-transition: opacity .4s, -o-transform .5s;
+  transition: opacity .4s, transform .5s;
+}
+
+.dropdown > ul > li > a {
+  background-color:rgba(17,24,31,0.8);
+  display: block;
+  padding: 5px 5px 5px 10px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.dropdown > ul > li > a:hover,
+.dropdown > ul > li > a:focus {
+  margin: 0;
+  -webkit-animation-name: qin-a-navlist-duarition;
+  animation-name: qin-a-navlist-duarition;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode : forwards;
+  -webkit-animation-timing-function: ease-out !important;
+  animation-timing-function: ease-out !important;
+  background-color: #44607c\9;
+}
+
+.dropdown > a:hover + ul > li,
+.dropdown > ul:hover li {
+  opacity: .8;
+  background-color:#2C3E50; 
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+
+}
+
+/* 展开 最大8个 */
+.dropdown > a:hover + ul > li:nth-child(1) {
+  
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -ms-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  transition-delay: 0s;
+}
+.dropdown > a:hover + ul > li:nth-child(2) {
+  
+  -webkit-transition-delay: 50ms;
+  -moz-transition-delay: 50ms;
+  -ms-transition-delay: 50ms;
+  -o-transition-delay: 50ms;
+  transition-delay: 50ms;
+}
+.dropdown > a:hover + ul > li:nth-child(3) {
+  
+  -webkit-transition-delay: 100ms;
+  -moz-transition-delay: 100ms;
+  -ms-transition-delay: 100ms;
+  -o-transition-delay: 100ms;
+  transition-delay: 100ms;
+}
+.dropdown > a:hover + ul > li:nth-child(4) {
+  
+  -webkit-transition-delay: 150ms;
+  -moz-transition-delay: 150ms;
+  -ms-transition-delay: 150ms;
+  -o-transition-delay: 150ms;
+  transition-delay: 150ms;
+}
+.dropdown > a:hover + ul > li:nth-child(5) {
+  
+  -webkit-transition-delay: 200ms;
+  -moz-transition-delay: 200ms;
+  -ms-transition-delay: 200ms;
+  -o-transition-delay: 200ms;
+  transition-delay: 200ms;
+}
+.dropdown > a:hover + ul > li:nth-child(6) {
+  
+  -webkit-transition-delay: 250ms;
+  -moz-transition-delay: 250ms;
+  -ms-transition-delay: 250ms;
+  -o-transition-delay: 250ms;
+  transition-delay: 250ms;
+}
+.dropdown > a:hover + ul > li:nth-child(7) {
+  
+  -webkit-transition-delay: 300ms;
+  -moz-transition-delay: 300ms;
+  -ms-transition-delay: 300ms;
+  -o-transition-delay: 300ms;
+  transition-delay: 300ms;
+}
+.dropdown > a:hover + ul > li:nth-child(8) {
+  
+  -webkit-transition-delay: 350ms;
+  -moz-transition-delay: 350ms;
+  -ms-transition-delay: 350ms;
+  -o-transition-delay: 350ms;
+  transition-delay: 350ms;
+}
+
+
+/* 收起 最大8个 */
+.dropdown ul > li:nth-child(1) {
+  
+  -webkit-transition-delay: 350ms;
+  -moz-transition-delay: 350ms;
+  -ms-transition-delay: 350ms;
+  -o-transition-delay: 350ms;
+  transition-delay: 350ms;
+}
+.dropdown ul > li:nth-child(2) {
+  
+  -webkit-transition-delay: 300ms;
+  -moz-transition-delay: 300ms;
+  -ms-transition-delay: 300ms;
+  -o-transition-delay: 300ms;
+  transition-delay: 300ms;
+}
+.dropdown ul > li:nth-child(3) {
+  
+  -webkit-transition-delay: 250ms;
+  -moz-transition-delay: 250ms;
+  -ms-transition-delay: 250ms;
+  -o-transition-delay: 250ms;
+  transition-delay: 250ms;
+}
+.dropdown ul > li:nth-child(4) {
+  
+  -webkit-transition-delay: 200ms;
+  -moz-transition-delay: 200ms;
+  -ms-transition-delay: 200ms;
+  -o-transition-delay: 200ms;
+  transition-delay: 200ms;
+}
+.dropdown ul > li:nth-child(5) {
+  
+  -webkit-transition-delay: 150ms;
+  -moz-transition-delay: 150ms;
+  -ms-transition-delay: 150ms;
+  -o-transition-delay: 150ms;
+  transition-delay: 150ms;
+}
+.dropdown ul > li:nth-child(6) {
+  
+  -webkit-transition-delay: 100ms;
+  -moz-transition-delay: 100ms;
+  -ms-transition-delay: 100ms;
+  -o-transition-delay: 100ms;
+  transition-delay: 100ms;
+}
+.dropdown ul > li:nth-child(7) {
+  
+  -webkit-transition-delay: 50ms;
+  -moz-transition-delay: 50ms;
+  -ms-transition-delay: 50ms;
+  -o-transition-delay: 50ms;
+  transition-delay: 50ms;
+}
+.dropdown ul > li:nth-child(8) {
+  
+  -webkit-transition-delay: 0ms;
+  -moz-transition-delay: 0ms;
+  -ms-transition-delay: 0ms;
+  -o-transition-delay: 0ms;
+  transition-delay: 0ms;
+}
+
+/* ========================================================================
+    文章样式
+ ========================================================================== */
+
+/* 段落、简介缩进 */
+.notice p, .article_brief {
+  text-indent: 2em;
+}
+
+.uk-article-title {
+ font-size: 25px;
+ font-weight: bold;
+}
+
+/* 点赞 */
+#add_like {
+   
+  cursor: pointer;
+  width: 110px;
+  height: auto;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #16A085;
+  color: #fff;
+  font-size: 18px;
+}
+
+#add_like:hover {
+   /* 调用动画 */
+  -webkit-animation-name: qin-op-duarition;
+  animation-name: qin-op-duarition;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode : forwards;
+  -webkit-animation-timing-function: ease-out !important;
+  animation-timing-function: ease-out !important;
+}
+/* 分享图标 */
+#share {
+  font-size: 18px;
+}
+#share img {
+  cursor: pointer;
+   
+  width: 33px;
+}
+#share img:hover {
+   /* 调用动画 */
+  -webkit-animation-name: qin-op-duarition;
+  animation-name: qin-op-duarition;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode : forwards;
+  -webkit-animation-timing-function: ease-out !important;
+  animation-timing-function: ease-out !important;
+}
+
+
+/* ========================================================================
+    留言页面
+ ========================================================================== */
+
+#tips {
+  font-size: 24px;
+  color: #2d7091;
+  font-weight: bold;
+}
+
+/* ========================================================================
+    关于页面
+ ========================================================================== */
+#about {
+  color: #2d7091;
+  font-size: 20px;
+
+}
+#about span {
+  font-size: 24px;
+  
+}
+#about > #contact img {
+   
+  width: 80px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#about > #contact img:hover {
+   /* 调用动画 */
+  -webkit-animation-name: qin-op-duarition;
+  animation-name: qin-op-duarition;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode : forwards;
+  -webkit-animation-timing-function: ease-out !important;
+  animation-timing-function: ease-out !important; 
+  
+}
+
+/* ========================================================================
+    友情链接等使用的自定义链接样式
+ ========================================================================== */
+#normal_links > a,
+#normal_links > a:link,
+#normal_links > a:visited {
+  display: inline-block;
+  padding:5px 8px;
+  margin:5px 2px;
+  border: 1px solid #aaa;
+  border-radius: 2px;
+  color:#2980B9;
+  font-weight: 600;
+}
+#normal_links > a:hover,
+#normal_links > a:active {
+   /* 调用动画 */
+  -webkit-animation-name: qin-a-link-duarition;
+  animation-name: qin-a-link-duarition;
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode : forwards;
+  animation-fill-mode : forwards;
+  -webkit-animation-timing-function: linear !important;
+  animation-timing-function: linear !important;
+  
+}
+
+/* ========================================================================
+    脚部样式
+ ========================================================================== */
+.tm-footer {
+  background-color: #111;
+  padding: 20px;
+  color: #aaa;
+}
+
+
+/* ========================================================================
+    自定义动画
+ ========================================================================== */
+
+/********************************* webkit *********************************/
+
+/* 导航栏hover动画 */
+@-webkit-keyframes qin-nav-duarition {
+  0% {
+    background:rgba(17,24,31,0.8);
+    color: #fff;
+  }
+  100% {
+    background-color: #616a78;
+    color: #fff;
+    outline: none;
+    position: relative;
+    z-index: 1;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+  }
+}
+
+/* a标记hover动画 */
+@-webkit-keyframes qin-a-duarition {
+  0% {
+    text-decoration:none;
+    color: #16A085;
+  }
+  100% {
+    text-decoration:none;
+    color: #2980B9;
+  }
+}
+
+/* normal链接hover动画 */
+@-webkit-keyframes qin-a-link-duarition {
+  0% {
+    text-decoration:none;
+    color: #2980B9;
+  }
+  100% {
+    text-decoration:none;
+    color: #fafafa;
+    background-color: #24495e;
+  }
+}
+
+/* 导航栏下拉菜单hover动画 */
+@-webkit-keyframes qin-a-navlist-duarition {
+  0% {
+    text-decoration:none;
+    color: #fff;
+    background-color:#2C3E50;
+  }
+  100% {
+    text-decoration:none;
+    color: #fff;
+    background-color: #424852;
+  }
+}
+/* hover 改变透明度动画 */
+@-webkit-keyframes qin-op-duarition {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0.8;  
+  }
+}
+/* brand hover动画 */
+@-webkit-keyframes qin-brand-duarition {
+  0% {
+    color: #fff;
+    padding: 0;
+  }
+  100% {
+    color: #ddd;
+    padding: 0 5px 0 0;
+  }
+}
+/* brand图片 hover动画 */
+@-webkit-keyframes qin-brand-pic-duarition {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0.5;
+  }
+}
+
+/********************************* default *********************************/
+/* 导航栏hover动画 */
+@keyframes qin-nav-duarition {
+  0% {
+    background:rgba(17,24,31,0.8);
+    color: #fff;
+  }
+  100% {
+    background-color: #616a78;
+    color: #fff;
+    outline: none;
+    position: relative;
+    z-index: 1;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+  }
+}
+
+/* a标记hover动画 */
+@keyframes qin-a-duarition {
+  0% {
+    text-decoration:none;
+    color: #16A085;
+  }
+  100% {
+    text-decoration:none;
+    color: #2980B9;
+  }
+}
+
+/* normal链接hover动画 */
+@keyframes qin-a-link-duarition {
+  0% {
+    text-decoration:none;
+    color: #2980B9;
+  }
+  100% {
+    text-decoration:none;
+    color: #fafafa;
+    background-color: #24495e;
+  }
+}
+
+/* 导航栏下拉菜单hover动画 */
+@keyframes qin-a-navlist-duarition {
+  0% {
+    text-decoration:none;
+    color: #fff;
+    background-color:#2C3E50;
+  }
+  100% {
+    text-decoration:none;
+    color: #fff;
+    background-color: #424852;
+  }
+}
+/* hover 改变透明度动画 */
+@keyframes qin-op-duarition {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0.8;  
+  }
+}
+/* brand hover动画 */
+@keyframes qin-brand-duarition {
+  0% {
+    color: #fff;
+    padding: 0;
+  }
+  100% {
+    color: #ddd;
+    padding: 0 5px 0 0;
+  }
+}
+/* brand图片 hover动画 */
+@keyframes qin-brand-pic-duarition {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0.5;
+  }
+}
