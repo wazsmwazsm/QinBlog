@@ -89,4 +89,4 @@ License
 
 The MIT License.
 
-Copyright (c) 2015 QinBlog
+Copyright (c) 2016-2017 QinBlog
