@@ -44,7 +44,7 @@ class Article extends MY_Controller {
         $this->load->library('user_agent');     // 用户代理类
         $this->load->helper('ajax');            // 加载自定义ajax类
         // 加载缓存驱动
-        $this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));
+        $this->load->driver('cache');
     }
 
     /**
@@ -88,7 +88,8 @@ class Article extends MY_Controller {
         // 热度
         if($mode == 'hot') {   
             // 根据评论、点赞排序
-            // 评论待做        
+            // 评论待做    
+            $condition['order_by'][] = array('field' => 'comment_count', 'mode' => 'DESC');    
             $condition['order_by'][] = array('field' => 'article_like', 'mode' => 'DESC'); 
         }
 
@@ -145,6 +146,10 @@ class Article extends MY_Controller {
 
         $data['page_links'] = $this->pagination->create_links();
 
+
+        // 评论数量
+        $this->load->model('Comment_model');
+
         // 页面脚本
         $this->_footer_data['script'] .= "<script type=\"text/javascript\">
             head.ready(function() {
@@ -183,21 +188,20 @@ class Article extends MY_Controller {
                 $('#back_top').qintool('back_top');
 
                 /* 初始化评论区 */
-                $('#comment').append('<br><p style=\"font-size:36px;text-align:center;\">评论功能正在开发哦</p>');
-                // $('#comment').comment({
-                //     'comment_url' : '".'/testMode/comment.json'."', 
-                //     'img_url' : '".base_url(IMG_PATH.'/twemoji')."',
-                //     'like_url' : '".'/testMode/like.php'."',
-                //     'submit_url' : '".'/testMode/comment.php'."',
-                // },
-                // function() {
-                //     $('#on_load').remove();
-                // });
+                $('#comment').comment({
+                    'comment_url' : '".base_url('Comment/comment_list/').$article_id."', 
+                    'img_url' : '".base_url(IMG_PATH.'/twemoji')."',
+                    'like_url' : '".base_url('Comment/comment_like/')."',
+                    'submit_url' : '".base_url('Comment/comment_add/').$article_id."',
+                },
+                function() {
+                    $('#on_load').remove();
+                });
 
                 // 文章点赞 
                 $('#add_like').click(function() {
                     if($(this).find('.like').length != 0) {
-                        $(this).find('.like').comment('comment_like', '".base_url('Article/like_count/'.$article_id)."');
+                        $(this).find('.like').comment('comment_like', '".base_url('Article/like_count/')."',".$article_id.");
                     }       
                 });
 
@@ -220,6 +224,9 @@ class Article extends MY_Controller {
 
         // 标签
         $data['tags'] = explode(" ", $data['article']['article_keyword']);
+
+        // 页面title
+        $this->_header_data['web_title'] = $data['article']['article_name'];
 
         $this->load->view('layout/header', $this->_header_data);
         $this->load->view('article/article', $data);
@@ -246,20 +253,27 @@ class Article extends MY_Controller {
         }
 
         // 缓存创建 
-        $cache_name = $this->input->ip_address().$article_id.'like';
+        $cache_name = $this->input->ip_address().$article_id.'article_like';
 
         // 是否存在缓存
-        if( ! $access_info = $this->cache->get($cache_name)) {
+        if( ! $access_info = $this->cache->file->get($cache_name)) {
 
             // 缓存未过期不得刷访问 
             // 过期时间设置：衡量访问量和访问限制(IP并发数量多要调小，否则会出现大量文件) 
-            $this->cache->save($cache_name, time(), 300);
+            $this->cache->file->save($cache_name, time(), 300);
 
             // 更新点赞数   
             $this->db->set('article_like', 'article_like+1', FALSE);
             $this->db->where('article_id', $article_id);          
             $this->db->update('article');
             
+            // 添加消息
+            $this->load->library('notice');
+
+            $msg = '文章"'.$this->Article_model->show_article_fields('article_name', $article_id)['article_name'].'"收到一个赞';
+            $this->notice->set_notice($msg);
+
+
             ajax_response_msg(1, '点赞成功');
         } 
             
@@ -284,14 +298,14 @@ class Article extends MY_Controller {
         }
 
         // 缓存创建
-        $cache_name = $this->input->ip_address().$article_id;
+        $cache_name = $this->input->ip_address().$article_id.'view';
 
         // 是否存在缓存
-        if( ! $access_info = $this->cache->get($cache_name)) {
+        if( ! $access_info = $this->cache->file->get($cache_name)) {
 
             // 缓存未过期不得刷访问 
             // 过期时间设置：衡量访问量和访问限制(IP并发数量多要调小，否则会出现大量文件)
-            $this->cache->save($cache_name, time(), 300);
+            $this->cache->file->save($cache_name, time(), 300);
 
             // 更新文章浏览    
             $this->db->set('article_view', 'article_view+1', FALSE);

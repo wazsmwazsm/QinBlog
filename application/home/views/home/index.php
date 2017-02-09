@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- 轮播幻灯片 -->
 <div id="carousel" class="uk-slidenav-position" data-uk-slideshow="{animation: 'scale'}">  
     <ul class="uk-slideshow uk-overlay-hover">
-        <?php $i=0; foreach($hot_articles as $hot_article): ?>
+        <?php foreach($hot_articles as $hot_article): ?>
         <li>
             <img src="<?php echo base_url(UPLOAD_PATH.$hot_article['article_img']); ?>" width="800" height="300">
             <figcaption class="uk-overlay-panel uk-overlay-background uk-overlay-top uk-overlay-slide-top" onclick="window.open('<?php echo base_url('Article/article/'.$hot_article['article_id']).'.html'; ?>')" style="cursor: pointer;">
@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <p><?php echo mb_strlen($hot_article['article_desc']) > 40 ? mb_substr($hot_article['article_desc'],0,40).'...' : $hot_article['article_desc']; ?></p>
             </figcaption>
         </li>
-        <?php $i++; endforeach; ?>
+        <?php endforeach; ?>
     </ul>
     <a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous" data-uk-slideshow-item="previous"></a>
     <a href="" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slideshow-item="next"></a>
@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <p class="uk-article-meta uk-align-right">
         <i class="uk-icon uk-icon-eye"></i><span class="uk-margin-right"> 浏览 <?php echo $article['article_view']; ?></span>  
         <i class="uk-icon uk-icon-thumbs-o-up"></i><span class="uk-margin-right"> 赞 <?php echo $article['article_like']; ?></span>
-        <i class="uk-icon uk-icon-commenting"></i><span class="uk-margin-right"> <a href="<?php echo base_url('Article/article/'.$article['article_id']).'#comment'; ?>">评论 0</a></span>
+        <i class="uk-icon uk-icon-commenting"></i><span class="uk-margin-right"> <a href="<?php echo base_url('Article/article/'.$article['article_id']).'#comment'; ?>">评论 <?php echo $article['comment_count']; ?></a></a></span>
     </p>
 </div>
 <?php endforeach; ?>

@@ -40,5 +40,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="uk-form-controls">
             <label class="uk-form-label uk-text-bold"><?php echo $opt_log['opt_info']; ?></label>    
             </div>
-        </div>      
+        </div>   
+    </form>   
 </div>

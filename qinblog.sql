@@ -153,6 +153,45 @@ CREATE TABLE `qinblog_webinfo` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `qinblog_webinfo` (`id`, `web_title`, `web_author`, `author_img`, `author_intr`, `email`, `qq`, `weibo`, `github`, `web_notice_title`, `web_notice`, `ICP`, `start_time`, `seo_keywords`, `seo_description`, `hot_max`, `tag_max`, `cate_max`, `archive_max`, `friendlink_max`, `is_record`, `carousel_max`, `article_max`) VALUES ('1', 'QinBlog', 'MrQin', '2017-01-12/114be4b6c3f394e3ed6734d3f7bdc0da.png', '我是MrQin，热爱生活，喜欢新事物，喜欢折腾。<br>\r\n<p>非科班出身，从C语言入门，接触过单片机、ARM、STM32等，目前学习WEB知识中。</p><p>搭建本博客的目的就是分享、表达知识和想法，希望能帮到别人，也能让自己学到更多。也希望能有前辈指出不足提出建议，让一个菜鸟得到成长。</p>', '942443360@qq.com', '942443360', 'http://weibo.com/MrQjq', 'https://github.com/wazsmwazsm', '源码地址', '<br><b>Version 1.0.0</b><br><br>\r\n<b>Github : <a href=\"https://github.com/wazsmwazsm/QinBlog\" target=\"_blank\">点我打开</a></b>', '', '1483228800', 'QinBlog,MrQin,秦佳奇的个人博客', 'QinBlog, 一款基于UIKIT设计界面,基于Codeigniter构建网站的博客系统,作者   MrQin,分享编程技术,生活日常.', '15', '50', '10', '10', '20', '0', '5', '6');
+INSERT INTO `qinblog_webinfo` (`id`, `web_title`, `web_author`, `author_img`, `author_intr`, `email`, `qq`, `weibo`, `github`, `web_notice_title`, `web_notice`, `ICP`, `start_time`, `seo_keywords`, `seo_description`, `hot_max`, `tag_max`, `cate_max`, `archive_max`, `friendlink_max`, `is_record`, `carousel_max`, `article_max`) VALUES ('1', 'QinBlog', 'MrQin', '2017-01-12/114be4b6c3f394e3ed6734d3f7bdc0da.png', '我是MrQin，热爱生活，喜欢新事物，喜欢折腾。<br>\r\n<p>非科班出身，从C语言入门，接触过单片机、ARM、STM32等，目前学习WEB知识中。</p><p>搭建本博客的目的就是分享、表达知识和想法，希望能帮到别人，也能让自己学到更多。也希望能有前辈指出不足提出建议，让一个菜鸟得到成长。</p>', '942443360@qq.com', '942443360', 'http://weibo.com/MrQjq', 'https://github.com/wazsmwazsm', '源码地址', '<br><b>Version 1.0.0</b><br><br>\r\n<b>Github : <a href=\"https://github.com/wazsmwazsm/QinBlog\" target=\"_blank\">点我打开</a></b>', '', UNIX_TIMESTAMP(), 'QinBlog,MrQin,秦佳奇的个人博客', 'QinBlog, 一款基于UIKIT设计界面,基于Codeigniter构建网站的博客系统,作者   MrQin,分享编程技术,生活日常.', '15', '50', '10', '10', '20', '0', '5', '6');
+
+#
+# TABLE STRUCTURE FOR: qinblog_message
+#
+
+DROP TABLE IF EXISTS `qinblog_message`;
+
+CREATE TABLE `qinblog_message` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '留言ID',
+  `pid` int(10) unsigned NOT NULL COMMENT '上级留言ID',
+  `username` varchar(30) NOT NULL COMMENT '留言用户',
+  `img_url` varchar(150) NOT NULL COMMENT '用户头像URL',
+  `like_count` int(10) unsigned NOT NULL COMMENT '留言点赞量',
+  `content` varchar(255) NOT NULL COMMENT '留言内容',
+  `timestamp` int(10) unsigned NOT NULL COMMENT '留言时间',
+  `is_checked` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否查看',
+  PRIMARY KEY (`id`),
+  KEY `timestamp` (`timestamp`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
+#
+# TABLE STRUCTURE FOR: qinblog_comment
+#
+
+DROP TABLE IF EXISTS `qinblog_comment`;
+
+CREATE TABLE `qinblog_comment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论ID',
+  `pid` int(10) unsigned NOT NULL COMMENT '上级评论ID',
+  `username` varchar(30) NOT NULL COMMENT '评论用户',
+  `img_url` varchar(150) NOT NULL COMMENT '用户头像URL',
+  `like_count` int(10) unsigned NOT NULL COMMENT '评论点赞量',
+  `content` varchar(255) NOT NULL COMMENT '评论内容',
+  `timestamp` int(10) unsigned NOT NULL COMMENT '评论时间',
+  `is_checked` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否查看',
+  `article_id` smallint(5) unsigned NOT NULL COMMENT '所属博文ID',
+  PRIMARY KEY (`id`),
+  KEY `timestamp` (`timestamp`),
+  KEY `article_id` (`article_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

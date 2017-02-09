@@ -26,6 +26,9 @@
         path.uikit + 'js/components/lightbox.min.js',
         /* 动态分页 */
         path.uikit + 'js/components/pagination.min.js',
+        /* 手风琴 */
+        path.uikit + 'css/components/accordion.almost-flat.min.css',
+        path.uikit + 'js/components/accordion.min.js',
         /* 幻灯片组件 */
         path.uikit + 'css/components/slideshow.almost-flat.min.css',
         path.uikit + 'js/components/slideshow.min.js',
@@ -51,7 +54,10 @@
 
     // USER jquery plugins
     head.load(path.user_plugins + 'qintool/jquery.qintool.min.js');
+
     head.load(path.user_css + 'plugins/comment.min.css');
+
+    head.load('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=APPID');
     head.load(path.user_plugins + 'comment/jquery.comment.min.js');
 
 

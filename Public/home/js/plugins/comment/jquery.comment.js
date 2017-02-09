@@ -94,6 +94,167 @@
 
     **********************************************/
 
+    /* ========================================================================
+                                三方登陆方法
+     ========================================================================== */
+
+    var user_info = {img : '',name : ''};   // 登陆用户信息对象
+
+    var LG_func = {
+
+        /**
+         * show_user
+         * 
+         * 在评论框控件显示用户登陆信息
+         *
+         * @see  commentDialogOBJ
+         * @used-by LG_func.login_vertify()
+         * @param  img   用户头像img url
+         * @param  name  用户名
+         * @return  null       
+         */
+        show_user : function(img, name) {
+            commentDialogOBJ.find(".button-face").after('<span class="login-user">' +
+                '<img src="' + img + '">' + 
+                name + '</span>'+
+                '<span class="logout-user" onclick="WB2.logout(function() { window.location.reload();})">退出</span>');
+        },
+
+        /**
+         * get_user_info
+         * 
+         * 返回用户access_token和uid
+         *
+         * @see  user_info
+         * @used-by CD_func.comment_submit()
+         * @return  null       
+         */
+        get_user_info : function() {
+            if(WB2.checkLogin()) {
+                return {
+                    access_token : WB2._config.access_token,
+                    uid : WB2._config.uid,
+                    img : user_info.img,
+                    name : user_info.name,
+                    api_from : 'weibo'
+                   };
+            }
+
+            return false;
+        },
+
+        /**
+         * login_vertify
+         * 
+         * 登陆验证
+         *
+         * @see  user_info
+         * @uses    LG_func.show_user()
+         * @used-by LG_func.login()
+         * @return  null       
+         */
+        login_vertify : function() {
+            // 微博登陆验证
+            if(WB2.checkLogin()) {
+                
+                WB2.anyWhere(function(W) {
+                    //数据交互
+                    W.parseCMD('/users/show.json', function(oResult, bStatus) {
+                        if(bStatus) {
+                            user_info.img = oResult.profile_image_url;
+                            user_info.name = oResult.screen_name;
+                            // 显示用户登陆信息
+                            LG_func.show_user(user_info.img, user_info.name);
+                        }
+                    }, {
+                        uid : WB2._config.uid
+                    }, {
+                        method : 'get',
+                        cache_time : 30
+                    });
+                });               
+
+                return true;
+            }
+
+            //    其他三方登陆验证
+            //    。。。     
+
+            return false;
+        },
+        /**
+         * login_weibo
+         * 
+         * 微博登陆控件
+         *
+         * @used-by LG_func.login()
+         * @return  null       
+         */
+        login_weibo : function() {                               
+
+            WB2.anyWhere(function (W) {
+                W.widget.connectButton({
+                    id: "wb_connect_btn",
+                    type: '3,2',
+                    callback: {
+                        login: function (o) { //登录后的回调函数
+                            window.location.reload();
+                        },
+                        logout: function () { //退出后的回调函数
+                            window.location.reload();
+                        }
+                    }
+                });
+            });        
+        },
+
+        /**
+         * login
+         * 
+         * 三方登陆函数
+         *
+         * @see  commentOBJ
+         * @uses    LG_func.login_vertify()
+         * @uses    LG_func.login_weibo()
+         * @used-by method.init()
+         * @return  null       
+         */
+        login : function() {
+            // 需求加载
+            commentOBJ.attr('xmlns:wb','http://open.weibo.com/wb');
+
+            // 判断登陆
+            if( ! LG_func.login_vertify()) {
+
+                commentOBJ.append('<div id="login_window" class="uk-modal">'+
+                    '<div class="uk-modal-dialog"><a class="uk-modal-close uk-close"></a>'+
+                    '<h3>请先登陆哦</h3><div id="wb_connect_btn"></div>'+
+                    '</wb:login-button></div></div>') ;
+
+                // 提交事件解绑
+                commentOBJ.find('#comment_dialog, #comment_list').off('click','.button-submit');
+
+                /* 未登录提示事件 */
+                commentOBJ.on('focus', '.comment-text', function(event) {
+                    event.preventDefault();
+                    UIkit.modal("#login_window").show();
+                });
+
+                commentOBJ.on('click', '.button-submit', function(event) {
+                    event.preventDefault();
+                    UIkit.modal("#login_window").show();
+                });
+
+
+                /* 三方登陆控件设置 */
+
+                // 微博
+                LG_func.login_weibo();
+            }
+            
+        }
+
+    }; 
 
     /* ========================================================================
                                 评论框方法
@@ -116,11 +277,12 @@
          */
         create_dialog : function() {
             // 创建对象  
-            var dialog = '<div id="comment_dialog"><div class="comment-text" contenteditable="true"></div>' +
+            var dialog = '<div id="comment_dialog">'+
+            '<div class="comment-text" contenteditable="true"></div>' +
             '<div class="comment-tool">' +
             '<span class="button-face"><i class="uk-icon uk-icon-smile-o"></i></span>' +
-            '<span class="button-submit">提交</span></div></div>';
-
+            '<span class="button-submit">提交</span></div></div>';     
+            
             commentOBJ.append(dialog);
 
             // 保存评论框节点对象
@@ -271,26 +433,59 @@
                     return;
                 }
 
+                if(comment_content.replace(/<[^>]*>/, '').length > 255) {
+                    comment_text.focus();
+                    $.comment_message('请输入小于255个字符', 'error');
+                    return;
+                }
+
                 // 评论、回复顶级元素不加回复作者提示，回复子元素要添加
                 if($(this).closest('li').length != 0 && $(this).closest('li').children('ul').length == 0) {
                     comment_content = comment_text.prev('lable').html() + ' ' + comment_content;
                 }
 
                 // 获取回复评论的id作为pid
-                var reply_comment_id = $(this).closest('li').attr('id');
+                var reply_comment_id = $(this).closest('.p_comment').attr('id');
                 // 顶级评论pid为0
                 var pid = typeof(reply_comment_id) == 'undefined' ? 
                           0 : reply_comment_id.substr(reply_comment_id.lastIndexOf('_') + 1);
+
+                // 获取当前登陆用户信息
+                var login_info = LG_func.get_user_info();
+
+                if(login_info === false) {
+                    $.comment_message('你还没登陆哦', 'error');
+                    return;
+                }
+                
+
+                // 提交动画
+                $this.find('.button-submit').html('<i class="uk-icon-spin uk-icon-spinner" style="font-size:18px;float:right;"></i>');
+
 
                 // 进行提交
                 jQuery.ajax({  
                     type : "POST",  
                     url : submit_url,  
-                    dataType : "json",  
-                    global : false,  
-                    data : {"pid" : pid, "content" : comment_content}, 
-                    success : function(data) {  
+                    dataType : 'json',
+                    data : {
+                        'pid' : pid, 
+                        'content' : comment_content,
+                        'img' : login_info.img, 
+                        'name' : login_info.name, 
+                        'uid' : login_info.uid, 
+                        'access_token' : login_info.access_token,
+                        'api_from' : login_info.api_from
+                    },
+                    success : function(data) { 
 
+                        // 删除提交动画
+                        $this.find('.button-submit').html('提交');
+
+                        if(data.status == 0) {
+                            $.comment_message(data.msg, 'error'); 
+                            return;   
+                        }
                         // 实际应用判断不成功的状态，显示消息
                         $.comment_message('提交成功', 'success');            
   
@@ -318,7 +513,7 @@
                         var comment_count = commentOBJ.find('#comment_count');                                             
                         comment_count.html(parseInt(comment_count.html()) + 1);
                         
-                    }  
+                    } 
                 });
             });    
         }
@@ -345,16 +540,24 @@
          * @uses    CL_func.comment_sort()
          * @uses    CL_func.comment_page()
          * @param   string   comment_url   评论数据的来源URL
+         * @param   function callback      评论加载完成后的回调函数
          * @return  null       
          */
-        comment_load : function(comment_url) {
+        comment_load : function(comment_url, callback) {
+
+            // 正在加载提示
+            commentOBJ.append('<div id="comment_load" style="text-align:center;font-size:24px;opacity:0.8;"><br><br>'+
+                '<i class="uk-icon-spin uk-icon-spinner"></i> 条目读取中...<br></div>');
+
             jQuery.ajax({  
                 type : "GET",  
                 url : comment_url + '?rd_' + Math.random(),  /* 防止缓存json数据 */
                 dataType : "json",  
                 global : false,   
-                success :  function(data) { 
-                 
+                success :  function(data) {                     
+                    // 删除加载提示
+                    commentOBJ.find('#comment_load').remove();
+
                     /* 生成列表 */
 
                     commentOBJ.append('<div id="comment_list"><br><hr><h3 class="uk-h2">评论（<span id="comment_count">' +
@@ -383,6 +586,7 @@
                     
                     commentOBJ.append('</ul></div>');
 
+
                     /**************** 对加载好的评论列表进行事件添加处理 ***************/
                     
                     /* 初始化回复框 */
@@ -403,7 +607,7 @@
                  
                         // 回复标签 
                         var reply_lable = '<lable style="color:#888;padding-right:10px;">回复 ' +
-                                          replyOBJ.parent().find('#author').focus().html() + ':</lable>';
+                                          replyOBJ.parent().find('#username').focus().html() + ':</lable>';
                         // 删除之前的lable(两次回复不同用户)
                         replyOBJ.find('.comment-text').prev('lable').remove();
                         replyOBJ.find('.comment-text').before(reply_lable).focus();
@@ -484,9 +688,15 @@
                     var top_comment = commentList.OBJ.children('ul').children('li');
                     CL_func.comment_page(top_comment);
 
-                }  
-            });
 
+                    // 回调函数
+                    if(typeof(callback) == 'function') {
+                        callback();
+                    }
+                }  
+            });            
+
+            
         },
 
         /**
@@ -501,21 +711,26 @@
          * @return  null       
          */
         comment_create : function(data, type) {
+
+            var date = new Date(parseInt(data.timestamp) * 1000);
+
             if(data.pid == 0) {
                 // 顶级回复,设置子菜单(ul)
-                var element = '<li id="comment_id_' + data.id + '"><article class="uk-comment">' + 
+                var element = '<li id="comment_id_' + data.id + '" class="p_comment"><article class="uk-comment">' + 
                           '<header class="uk-comment-header">' + 
-                          '<img class="uk-comment-avatar" width="50" height="50" src="' + data.img + '" alt="">' + 
-                          '<h4 id="author" class="uk-comment-title">' + data.author + '</h4>' + 
+                          '<img class="uk-comment-avatar" width="50" height="50" src="' + data.img_url + '" alt="">' + 
+                          '<h4 id="username" class="uk-comment-title">' + data.username + '</h4>' + 
                           '<div class="uk-comment-body">' + data.content + '</div>' + 
                           '<p class="uk-comment-meta uk-align-right uk-margin-top">' + 
-                          '<span id="comment_date" class="uk-margin-right">' + data.date +
+                          '<span id="comment_date" class="uk-margin-right">' + 
+                          date.getFullYear()+'/'+(date.getMonth()+1)+'/'+date.getDate() + ' '+
+                          date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + 
                           '</span><span class="uk-margin-right reply">' + 
                           '<i class="uk-icon uk-icon-reply"></i> 回复</span><span class="reply-list">' + 
                           '<i class="uk-icon uk-icon-comments"></i> 收起回复</span>' + 
                           '(<span class="reply-count">0</span>) <span class="like">' + 
                           '<i class="uk-icon uk-icon-heart-o"></i> 赞</span>(<span class="like-count">' + 
-                          data.like + '</span>) ' + '</p></header></article><ul></ul></li>';
+                          data.like_count + '</span>) ' + '</p></header></article><ul></ul></li>';
 
                 if(type == 'load') {
                     // 初始化加载，依次添加
@@ -528,26 +743,45 @@
                 }
             } else {
                 // 子回复,不设置子菜单
-                var element = '<li id="comment_id_' + data.id + '"><article class="uk-comment">' + 
+                var element = '<li id="comment_id_' + data.id + '" class="c_comment"><article class="uk-comment">' + 
                           '<header class="uk-comment-header">' + 
-                          '<img class="uk-comment-avatar" width="50" height="50" src="' + data.img + '" alt="">' + 
-                          '<h4 id="author" class="uk-comment-title">' + data.author + '</h4>' + 
+                          '<img class="uk-comment-avatar" width="50" height="50" src="' + data.img_url + '" alt="">' + 
+                          '<h4 id="username" class="uk-comment-title">' + data.username + '</h4>' + 
                           '<div class="uk-comment-body">' + data.content + '</div>' + 
                           '<p class="uk-comment-meta uk-align-right uk-margin-top">' + 
                           '<span id="comment_date" class="uk-margin-right">' + 
-                          data.date + '</span><span class="uk-margin-right reply">' + 
+                          date.getFullYear()+'/'+(date.getMonth()+1)+'/'+date.getDate() + ' '+
+                          date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + 
+                          '</span><span class="uk-margin-right reply">' + 
                           '<i class="uk-icon uk-icon-reply"></i> 回复</span><span class="like">' + 
                           '<i class="uk-icon uk-icon-heart-o"></i> 赞</span>(<span class="like-count">' + 
-                          data.like + '</span>) ' + '</p></header></article></li>';
+                          data.like_count + '</span>) ' + '</p></header></article></li>';
 
                 var parent_OBJ = commentList.List.find('#comment_id_' + data.pid);
 
                 if(parent_OBJ.children('ul').length == 0) {
                     // 如果是在子评论里面回复的，则不再创建下一级评论
-                    parent_OBJ.closest('ul').append(element);
+                    if(type == 'load') {
+                        // 初始化加载，依次添加
+                        parent_OBJ.closest('ul').prepend(element);
+                    } else if(type == 'refresh') {
+                        // 新添加刷新列表，在最前端添加
+                        parent_OBJ.closest('ul').append(element);
+                    } else {
+                        $.error('[comment]comment_create : unkonw mode "' + type + '" !');
+                    }
                 } else {
                     // 给顶级评论回复
-                    parent_OBJ.children('ul').append(element);
+                    if(type == 'load') {
+                        // 初始化加载，依次添加
+                        parent_OBJ.children('ul').prepend(element);
+                    } else if(type == 'refresh') {
+                        // 新添加刷新列表，在最前端添加
+                        parent_OBJ.children('ul').append(element);
+                    } else {
+                        $.error('[comment]comment_create : unkonw mode "' + type + '" !');
+                    }
+                    
                 }
             }
 
@@ -687,7 +921,10 @@
             CD_func.create_dialog();
 
             // 加载评论
-            CL_func.comment_load(settings.comment_url);
+            CL_func.comment_load(settings.comment_url, function() {
+                // 检查登陆、设置登陆配置
+                LG_func.login();
+            });          
 
             // 调用回调函数
             if(typeof(callback) == 'function') {
@@ -710,12 +947,11 @@
         comment_like : function(like_url, id) {
             var $this = this;
             jQuery.ajax({  
-                type : "POST",  
-                url : like_url,  
+                type : "get",  
+                url : like_url+'/'+id,  
                 dataType : "json",    // 响应数据为json
-                data  : {'id' : id}, 
                 global : false,   
-                success : function(data) { 
+                success : function(data) {  
 
                     if(data.status == 0) {
                         $.comment_message(data.msg, 'error');

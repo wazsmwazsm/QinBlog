@@ -79,6 +79,8 @@ class Home extends MY_Controller {
                                       array('field' => 'publish_time', 'mode' => 'DESC'));      
         $data['hot_articles'] = $this->Article_model->show_article_condition($condition);
 
+        // 评论数量
+        $this->load->model('Comment_model');
 
         $this->load->view('layout/header',$this->_header_data);
         $this->load->view('home/index', $data);
@@ -106,16 +108,15 @@ class Home extends MY_Controller {
                 $('#back_top').qintool('back_top');
 
                 /* 初始化留言区 */
-                $('#comment').append('<br><p style=\"font-size:36px;text-align:center;\">留言功能正在开发哦</p>');
-                // $('#comment').comment({
-                //     'comment_url' : '".'/testMode/comment.json'."', 
-                //     'img_url' : '".base_url(IMG_PATH.'/twemoji')."',
-                //     'like_url' : '".'/testMode/like.php'."',
-                //     'submit_url' : '".'/testMode/comment.php'."',
-                // },
-                // function() {
-                //     $('#on_load').remove();
-                // });
+                $('#comment').comment({
+                    'comment_url' : '".base_url('Message/message_list')."', 
+                    'img_url' : '".base_url(IMG_PATH.'/twemoji')."',
+                    'like_url' : '".base_url('Message/message_like')."',
+                    'submit_url' : '".base_url('Message/message_add')."',
+                },
+                function() {
+                    $('#on_load').remove();
+                });
 
             });           
         </script>";

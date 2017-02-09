@@ -37,27 +37,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li class="uk-parent uk-hidden-small" data-uk-dropdown>
                         <a>
                             <span class="uk-text-primary uk-text-bold">消息</span>
-                            <span class="uk-badge uk-badge-notification uk-margin-left">5</span>
+                            <span id="new_total" class="uk-badge uk-badge-notification uk-margin-left">0</span>
                         </a>
                         <div class="uk-dropdown uk-dropdown-navbar">
                             <ul class="uk-nav uk-nav-navbar">
                                 <li>
-                                    <a href="/testMode/like.php"><span>新评论</span>
-                                        <span class="uk-badge uk-badge-notification uk-align-right">3</span>
+                                    <a href="<?php echo site_url('Comment/index/checked/0'); ?>"><span>新评论</span>
+                                        <span id="new_comment" class="uk-badge uk-badge-notification uk-align-right">0</span>
                                     </a>
                                 </li>
                                 <li class="uk-nav-divider"></li>
                                 <li>
-                                    <a href="new_msg.html"><span>新留言</span>
-                                        <span class="uk-badge uk-badge-notification uk-align-right">3</span>
+                                    <a href="<?php echo site_url('Message/index/checked/0'); ?>"><span>新留言</span>
+                                        <span id="new_message" class="uk-badge uk-badge-notification uk-align-right">0</span>
                                     </a>
                                 </li> 
-                                <li class="uk-nav-divider"></li>                    
-                                <li>
-                                    <a href="new_like.html"><span>收到赞</span>
-                                        <span class="uk-badge uk-badge-notification uk-align-right">3</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li><!-- 消息下拉菜单 end -->
@@ -93,8 +87,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </ul>                      
                             </li>
                             <li><?php echo anchor('Category/index','<i class="uk-icon uk-icon-list"></i> 分类管理'); ?></li>
-                            <li><a href="message.html"><i class="uk-icon uk-icon-commenting"></i> 留言管理</a></li>
-                            <li><a href="comment.html"><i class="uk-icon-comments"></i> 评论管理</a></li>
+                            <li><?php echo anchor('Message/index','<i class="uk-icon-commenting"></i> 留言管理'); ?></li>
+                            <li><?php echo anchor('Comment/index','<i class="uk-icon-comments"></i> 评论管理'); ?></li>
                             <li class="uk-nav-divider"></li>  
                         </ul>
                         <h3 class="uk-panel-title"><i class="uk-icon uk-icon-cog"></i><span class="uk-text-primary uk-text-bold"> 系统管理</span></h3>
@@ -140,8 +134,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </ul>                      
                         </li>
                         <li><?php echo anchor('Category/index','<i class="uk-icon uk-icon-list"></i> 分类管理'); ?></li>
-                        <li><a href="message.html"><i class="uk-icon uk-icon-commenting"></i> 留言管理</a></li>
-                        <li><a href="comment.html"><i class="uk-icon-comments"></i> 评论管理</a></li>
+                        <li><?php echo anchor('Message/index','<i class="uk-icon-commenting"></i> 留言管理'); ?></li>
+                        <li><?php echo anchor('Comment/index','<i class="uk-icon-comments"></i> 评论管理'); ?></li>
                         <li class="uk-nav-divider"></li> 
                     </ul>                
                     <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
@@ -170,17 +164,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li class="uk-nav-divider"></li>
                         <li><?php echo anchor('Manage/dash','首页'); ?></li>
                         <li class="uk-parent">
-                            <a href="#">消息</a>
+                            <a href="#">消息<span id="new_total_sm" style="display: inline-block; padding-left: 10px;">0</span></a>
                             <ul class="uk-nav-sub">
                                 <li class="uk-margin-left">
-                                    <a>新评论</a>
+                                    <a href="<?php echo site_url('Comment/index/checked/0'); ?>"><span>新评论</span>
+                                        <span id="new_comment_sm" style="display: inline-block; padding-left: 10px;">0</span>
+                                    </a>
                                 </li>
                                 <li class="uk-margin-left">
-                                    <a>新留言</a>
+                                    <a href="<?php echo site_url('Message/index/checked/0'); ?>"><span>新留言</span>
+                                        <span id="new_message_sm" style="display: inline-block; padding-left: 10px;">0</span>
+                                    </a>
                                 </li> 
-                                <li class="uk-margin-left">
-                                    <a>收到赞</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="uk-nav-divider"></li>

@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 echo " -> ";
                 if($mode == 'search'){
                     echo "<a href='javascript:void(0)'>搜索</a> -> ";
-                    echo anchor('Article/article_list/search/'.urldecode(urldecode($param)),urldecode(urldecode($param)));
+                    echo anchor('Article/article_list/search/'.rawurldecode(rawurldecode($param)),rawurldecode(rawurldecode($param)));
                 } else if($mode == 'category'){
                     // 分类查询的话所有数据都属一个分类，取一条即可 
                     echo anchor('Article/article_list/category/'.$articles[0]['category_id'],$articles[0]['category_name']);
@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     echo anchor('Article/article_list/hot/','热门');
                 } else if($mode == 'tag'){
                     echo "<a href='javascript:void(0)'>标签</a> -> ";
-                    echo anchor('Article/article_list/tag/'.urldecode(urldecode($param)),urldecode(urldecode($param)));
+                    echo anchor('Article/article_list/tag/'.rawurldecode(rawurldecode($param)),rawurldecode(rawurldecode($param)));
                 } else if($mode == 'archive'){
                     echo "<a href='javascript:void(0)'>归档</a> -> ";
                     echo anchor('Article/article_list/archive/'.$param,date("Y-m",$param));
@@ -62,7 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <p class="uk-article-meta uk-align-right">
                 <i class="uk-icon uk-icon-eye"></i><span class="uk-margin-right"> 浏览 <?php echo $article['article_view']; ?></span>  
                 <i class="uk-icon uk-icon-thumbs-o-up"></i><span class="uk-margin-right"> 赞 <?php echo $article['article_like']; ?></span>
-                <i class="uk-icon uk-icon-commenting"></i><span class="uk-margin-right"> <a href="<?php echo base_url('Article/article/'.$article['article_id']).'#comment'; ?>">评论 0</a></span>
+                <i class="uk-icon uk-icon-commenting"></i><span class="uk-margin-right"> <a href="<?php echo base_url('Article/article/'.$article['article_id']).'#comment'; ?>">评论 <?php echo $article['comment_count']; ?></a></span>
             </p>
         </div>
     <?php endforeach; ?>

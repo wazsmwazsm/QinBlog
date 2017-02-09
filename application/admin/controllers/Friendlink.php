@@ -433,7 +433,6 @@ class Friendlink extends CI_Controller {
      *
      * 批量删除 
      *
-     * @uses   Friendlink::delete()
      * @access public 
      * @return  void
      */

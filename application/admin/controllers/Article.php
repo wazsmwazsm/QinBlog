@@ -453,7 +453,7 @@ class Article extends CI_Controller {
         /* 上传图片 */
 
         // 创建子目录
-        $sub_dir = date("Y-m-d",time()).DIRECTORY_SEPARATOR;
+        $sub_dir = date("Y-m-d",time()).'/';
         if( ! is_dir(SYS_UPLOAD.$sub_dir)) {
             mkdir(SYS_UPLOAD.$sub_dir, 0777);
         }
@@ -771,7 +771,7 @@ class Article extends CI_Controller {
             /* 上传图片 */
 
             // 创建子目录 
-            $sub_dir = date("Y-m-d",time()).DIRECTORY_SEPARATOR;
+            $sub_dir = date("Y-m-d",time()).'/';
             if( ! is_dir(SYS_UPLOAD.$sub_dir)) {
                 mkdir(SYS_UPLOAD.$sub_dir, 0777);
             }
@@ -910,7 +910,6 @@ class Article extends CI_Controller {
      *
      * 批量删除文章
      * 
-     * @uses   Article::delete()
      * @access public
      * @return  void
      */
@@ -1024,7 +1023,7 @@ class Article extends CI_Controller {
         /* 上传图片 */
 
         // 创建子目录 
-        $sub_dir = date("Y-m-d",time()).DIRECTORY_SEPARATOR;
+        $sub_dir = date("Y-m-d",time()).'/';
         if( ! is_dir(SYS_UPLOAD.$sub_dir)) {
             mkdir(SYS_UPLOAD.$sub_dir, 0777);
         }

@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </tr>
                             <tr>
                                 <td class="uk-text-bold uk-text-primary">评论个数:</td>
-                                <td>0</td>
+                                <td><?php echo $article['comment_count']; ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -61,6 +61,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div id="article_content" style="padding: 0px;background-color: #fafafa;">
                 <textarea style="display:none;"><?php echo $article['article_content']; ?></textarea>
             </div>
+            <br>
+            <h3 style="font-weight: bold;"><a href="<?php echo base_url('Article/article/'.$article['article_id']); ?>" target="_blank" >去前台查看</a></h3>
             <hr>
             <!-- 上一篇、下一篇 -->
             <?php if(!empty($article_before)): ?>

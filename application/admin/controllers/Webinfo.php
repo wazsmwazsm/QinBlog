@@ -408,7 +408,7 @@ class Webinfo extends CI_Controller {
 
         /* 文件上传 */
 
-        $sub_dir = date("Y-m-d",time()).DIRECTORY_SEPARATOR;
+        $sub_dir = date("Y-m-d",time()).'/';
         if(!is_dir(SYS_UPLOAD.$sub_dir)) {
             mkdir(SYS_UPLOAD.$sub_dir, 0777);
         }

@@ -84,7 +84,7 @@ class MY_Controller extends CI_Controller {
         // 只加载8个文章最多的分类，由CSS、美观权衡决定，写死
         $this->_header_data['categories'] = $this->Category_model->show_cate(NULL, array('per_page'=>8, 'offset'=>0));
         $this->_header_data['web_info']   = $web_info;
-
+        $this->_header_data['web_title'] = $web_info['web_title'];
 
         
         /* 侧边栏公共数据 */
@@ -97,6 +97,7 @@ class MY_Controller extends CI_Controller {
 
         // 根据评论、点赞排序 
         // 评论待做      
+        $condition['order_by'][] = array('field' => 'comment_count', 'mode' => 'DESC'); 
         $condition['order_by'][] = array('field' => 'article_like', 'mode' => 'DESC');
         $condition['limit']      = array('per_page' => $web_info['hot_max'], 'offset' => 0);
 

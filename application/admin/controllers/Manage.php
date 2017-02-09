@@ -71,6 +71,52 @@ class Manage extends CI_Controller {
                 });
                 // 登出提示
                 $('#logout, #logout_canvas').admintool('confirm_ex', '真的要退出吗？', 'self');
+                
+                /* 消息提示 */
+
+                // first time
+                $.get('".site_url('Comment/count_nckd')."', function(result){
+                    $('#new_comment, #new_comment_sm').text(result);
+
+                    $('#new_total, #new_total_sm').text(parseInt($('#new_comment').text()) + parseInt($('#new_message').text()));
+                });
+                
+                $.get('".site_url('Message/count_nckd')."', function(result){
+                    $('#new_message, #new_message_sm').text(result);
+
+                    $('#new_total, #new_total_sm').text(parseInt($('#new_comment').text()) + parseInt($('#new_message').text()));
+                });
+
+                // loop
+                window.setInterval(function(){
+                    // 未读评论数
+                    $.get('".site_url('Comment/count_nckd')."', function(result){
+                        $('#new_comment, #new_comment_sm').text(result);
+                        $('#new_total, #new_total_sm').text(parseInt($('#new_comment').text()) + parseInt($('#new_message').text()));
+                    });
+                    // 未读留言数
+                    $.get('".site_url('Message/count_nckd')."', function(result){
+                        $('#new_message, #new_message_sm').text(result);
+                        $('#new_total, #new_total_sm').text(parseInt($('#new_comment').text()) + parseInt($('#new_message').text()));
+                    });
+        
+                }, 10*1000);
+                
+                // 从消息队列获取新消息
+                window.setInterval(function(){
+                    $.get('".site_url('Manage/get_notice')."', function(result){ 
+                        if(result != ''){
+                            UIkit.notify({
+                                message : result,
+                                status  : 'info',
+                                timeout : 0,    // 常驻
+                                pos     : 'top-right'
+                            }); 
+                        }
+                        
+                    });
+                }, 1000);
+
             });     
 
         </script>";
@@ -106,6 +152,12 @@ class Manage extends CI_Controller {
         $data['friendlink_count'] = $this->Friendlink_model->count_all();
         $data['tag_count']        = count($this->Article_model->create_tag());
 
+        // 统计赞
+        $data['like_count'] = 0;
+        foreach ($this->Article_model->show_article_fields('article_like') as $value) {
+            $data['like_count'] += $value['article_like'];
+        }
+
         /* 读取站点信息 */
 
         $this->load->model('Webinfo_model');
@@ -114,8 +166,27 @@ class Manage extends CI_Controller {
 
         $data['author_img']      = $web_info['author_img'];
         $data['uploadfile_size'] = $this->Webinfo_model->dir_size_count(SYS_UPLOAD);
-        $data['run_time']        = date("d天",time() - $web_info['start_time']);
+        $data['run_time']        = floor((time() - $web_info['start_time']) / 86400);
         $data['database_size']   = $this->Webinfo_model->database_size();
+
+        /* 读取评论信息 */
+        $this->load->model('Comment_model');
+
+        $data['comment_count'] = $this->Comment_model->count_all();
+
+        $data['comments'] = $this->Comment_model->show_info_condition(array('limit' => array('per_page' => 3, 'offset' => 0)));
+
+        $data['comment_more'] = $data['comment_count'] > 3 ? '<tr><td colspan="4" class="uk-text-right uk-text uk-text-bold">'.anchor("Comment/index","查看更多...").'</td></tr>' : '';
+        
+        /* 读取留言信息 */
+        $this->load->model('Message_model');
+
+        $data['message_count'] = $this->Message_model->count_all();
+
+        $data['messages'] = $this->Message_model->show_info_condition(array('limit' => array('per_page' => 3, 'offset' => 0)));
+
+        $data['message_more'] = $data['message_count'] > 3 ? '<tr><td colspan="4" class="uk-text-right uk-text uk-text-bold">'.anchor("Message/index","查看更多...").'</td></tr>' : '';
+
 
         $this->load->view('manage/dashboard', $data);
     }
@@ -145,6 +216,22 @@ class Manage extends CI_Controller {
         $this->input->set_cookie($cookie_conf);
 
         redirect('Login/login');
+    }
+
+
+    /**
+     * get_notice Action
+     *
+     * 读取消息队列，显示消息
+     *
+     * @access public 
+     * @return  void
+     */
+    public function get_notice() {
+        
+        $this->load->library('notice');
+
+        echo $this->notice->get_notice();
     }
 }
 

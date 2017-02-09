@@ -52,16 +52,22 @@ class Article_model extends CI_Model {
 
         /* 连表查询显示分类名称 */
 
-        $this->db->select('article.* , category.category_name');
+        $this->db->select('article.* , category.category_name, COUNT(qinblog_comment.article_id) AS comment_count');
         $this->db->from('article');
         $this->db->join('category', 'article.category_id = category.category_id');
+        $this->db->join('comment', 'article.article_id = comment.article_id', 'left');
 
         // 取一条信息 
         if(NULL !== $article_id) {
-            $this->db->where('article_id', $article_id);
+            $this->db->where('article.article_id', $article_id);
+
+            $this->db->group_by('comment.article_id');
+
             $query = $this->db->get();
             return $query->row_array();
         }
+
+        $this->db->group_by('comment.article_id');
 
         // 取全部数组 
         $query = $this->db->order_by('publish_time', 'DESC')->get(); 
@@ -76,12 +82,20 @@ class Article_model extends CI_Model {
      * 取全部数据的指定字段
      *
      * @param  string  $fields  字段字符串，逗号隔开
+     * @param  int  $article_id  
      * @access public 
      * @return  array
      */
-    public function show_article_fields($fields) {
+    public function show_article_fields($fields, $article_id = NULL) {
         $this->db->select($fields);
         
+        // 取一条信息 
+        if(NULL !== $article_id) {
+            $this->db->where('article_id', $article_id);
+            $query = $this->db->get('article');
+            return $query->row_array();
+        }
+
         $this->db->order_by('publish_time', 'DESC');   // 默认时间排序 
         $query = $this->db->get('article'); 
 
@@ -151,9 +165,13 @@ class Article_model extends CI_Model {
         $select_con = array_merge($default, $condition);
 
         // 显示分类连表查询 
-        $this->db->select('article.article_id, article.article_name, article.article_author, article.publish_time, article.modify_time, article.category_id, article.is_top, article.article_img, article.article_thumb, article.article_desc, article.article_like, article.article_view, category.category_name');
+        $this->db->select('article.article_id, article.article_name, article.article_author,'.
+            ' article.publish_time, article.modify_time, article.category_id, article.is_top,'.
+            ' article.article_img, article.article_thumb, article.article_desc, article.article_like,'.
+            ' article.article_view, category.category_name, COUNT(qinblog_comment.article_id) AS comment_count');
         $this->db->from('article');
         $this->db->join('category', 'article.category_id = category.category_id');
+        $this->db->join('comment', 'article.article_id = comment.article_id', 'left');
 
         /* 条件组合SQL语句 */
 
@@ -207,6 +225,8 @@ class Article_model extends CI_Model {
             } 
             $this->db->group_end();      
         }
+
+        $this->db->group_by('comment.article_id');
 
         if($select_con['order_by'] !== NULL) {
 

@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
-    <title><?php echo $web_info['web_title']; ?></title>
+    <title><?php echo $web_title; ?></title>
     <!-- SEO 关键字 -->
     <meta name="Keywords" content="<?php echo $web_info['seo_keywords']; ?>" />
     <meta name="Description" content="<?php echo $web_info['seo_description']; ?>" />

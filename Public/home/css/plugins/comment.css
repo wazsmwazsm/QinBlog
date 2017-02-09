@@ -88,6 +88,26 @@
 }
 
 /* ========================================================================
+   登陆信息样式
+ ========================================================================== */
+#comment > #comment_dialog > .comment-tool > .login-user {
+  padding: 0 5px;
+  cursor: pointer;
+}
+#comment > #comment_dialog > .comment-tool > .login-user > img {
+  width: 22px;
+  margin: 0 5px;
+  border-radius: 3px;
+}
+
+#comment > #comment_dialog > .comment-tool > .logout-user {
+  color: #16A085;
+  padding:0px 5px;
+  cursor: pointer;
+}
+
+
+/* ========================================================================
    表情框样式
  ========================================================================== */
 #comment > #comment_dialog > .comment-tool > .facebox,
@@ -145,7 +165,6 @@
   padding: 3px;
   cursor: pointer;
 }
-
 
 
 /* ========================================================================
