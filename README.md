@@ -72,7 +72,9 @@ openssl、mbstring
 
 > 后台默认账户：admin，密码：adminqinblog
 
-> 想使用评论、留言功能，先要去微博申请APPID和网站认证，将Public/home/js/init.js中 head.load('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=APPID');中的APPID换为自己的APPID。或者你不想要三方登录，可以修改代码做成自己想要的评论系统。评论、留言jQuery插件为Public/home/js/plugins/comment/jquery.comment.js, 后端处理文件在home和admin两个应用的controller中。
+> 想使用评论、留言功能，先要去微博申请APPID和网站认证，将Public/home/js/init.js中 head.load('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=APPID');
+
+中的APPID换为自己的APPID。或者你不想要三方登录，可以修改代码做成自己想要的评论系统。评论、留言jQuery插件为Public/home/js/plugins/comment/jquery.comment.js, 后端处理文件在home和admin两个应用的controller中。
 
 > ##### 权限
 
