@@ -4,6 +4,7 @@ An open source of blog
 > 基于codeigniter、UIKIT、editormd的一款开源个人博客系统
 > 用于个人发布、管理、展示博客，遵循MIT协议
 
+### Tips: QinBlog现在完成了评论、留言系统，已经是一款完整的开源软件啦
 
 ### 主页
 [www.qinblog.net](http://www.qinblog.net "www.qinblog.net")
