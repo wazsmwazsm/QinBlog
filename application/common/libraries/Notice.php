@@ -71,7 +71,7 @@ class Notice {
             $nt = array();
         }
 
-        array_unshift($nt, $msg);
+        array_unshift($nt, date('Y:m:d H:i:s', time()).'<br>'.$msg);
         // 保存或更新缓存
         $this->_CI->cache->file->save('nt', $nt, 86400 * 7);
     }

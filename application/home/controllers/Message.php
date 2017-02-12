@@ -118,7 +118,7 @@ class Message extends CI_Controller {
         // 添加消息
         $this->load->library('notice');
 
-        $msg = date('Y:m:d H:i:s', time()).'<br>你收到一条留言';
+        $msg = '你收到一条留言';
         $this->notice->set_notice($msg);
     }
 
