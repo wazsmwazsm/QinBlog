@@ -120,7 +120,7 @@ class Comment extends CI_Controller {
         // 添加消息
         $this->load->library('notice');
         $this->load->model('Article_model');
-        $msg = '文章"'.$this->Article_model->show_article_fields('article_name', $article_id)['article_name'].'"收到一个评论';
+        $msg = date('Y:m:d H:i:s', time()).'<br>文章"'.$this->Article_model->show_article_fields('article_name', $article_id)['article_name'].'"收到一个评论';
         $this->notice->set_notice($msg);
     }
 
