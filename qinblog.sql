@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS `qinblog_article`;
 CREATE TABLE `qinblog_article` (
   `article_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '博文自增ID',
   `article_name` varchar(30) NOT NULL COMMENT '文章标题',
-  `article_author` varchar(10) NOT NULL DEFAULT '秦佳奇' COMMENT '文章作者',
+  `article_author` varchar(10) NOT NULL DEFAULT 'admin' COMMENT '文章作者',
   `publish_time` int(10) unsigned NOT NULL COMMENT '发布时间',
   `modify_time` int(10) unsigned NOT NULL COMMENT '修改时间',
   `category_id` smallint(5) unsigned NOT NULL COMMENT '所属分类ID',
