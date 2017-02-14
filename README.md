@@ -12,6 +12,10 @@ An open source of blog
 
 [Update log](https://github.com/wazsmwazsm/QinBlog/blob/master/UPDATE.md)
 
+### 详细功能介绍
+
+[详细功能](http://www.qinblog.net/Article/article/3.html)
+
 ### 实现的功能
 - 发布、更新、删除、置顶文章
 - 关键字、分类搜索查看文章
