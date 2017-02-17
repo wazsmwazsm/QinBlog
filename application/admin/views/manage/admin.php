@@ -11,9 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
     <meta name="author" content="<?php echo $web_info['web_author']; ?>"/>
     <title><?php echo $web_info['web_title'];?></title>
+    <link href="<?php echo base_url(IMG_PATH.'favicon.ico'); ?>" rel="icon" type="image/x-icon">
     <!-- 适合阻塞加载的样式，使用非阻塞会将没样式的html渲染 -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(COMMON_PATH.'uikit/css/uikit.almost-flat.min.css'); ?>" />
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(AD_CSS_PATH.'qin.admin.min.css'); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(COMMON_PATH.'uikit/css/uikit.almost-flat.min.css'); ?>" >
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(AD_CSS_PATH.'qin.admin.min.css'); ?>" >
     <script src="<?php echo base_url(COMMON_PATH.'jquery.min.js'); ?>"></script>
     <script src="<?php echo base_url(COMMON_PATH.'uikit/js/uikit.min.js'); ?>"></script>
     <!-- 非阻塞并发加载js模块 -->

@@ -17,17 +17,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
     <title><?php echo $web_title; ?></title>
     <!-- SEO 关键字 -->
-    <meta name="Keywords" content="<?php echo $web_info['seo_keywords']; ?>" />
-    <meta name="Description" content="<?php echo $web_info['seo_description']; ?>" />
-    <meta name="author" content="<?php echo $web_info['web_author']; ?>"/>
+    <meta name="Keywords" content="<?php echo $web_info['seo_keywords']; ?>" >
+    <meta name="Description" content="<?php echo $web_info['seo_description']; ?>" >
+    <meta name="author" content="<?php echo $web_info['web_author']; ?>">
     
+    <link href="<?php echo base_url(IMG_PATH.'favicon.ico'); ?>" rel="icon" type="image/x-icon">
+
     <!-- 适合阻塞加载的样式，使用非阻塞会将没样式的html渲染 -->
-    <link rel="stylesheet" type="text/css" href="<?php echo COMMON_PATH.'uikit/css/uikit.almost-flat.min.css'; ?>" />     
+    <link rel="stylesheet" type="text/css" href="<?php echo COMMON_PATH.'uikit/css/uikit.almost-flat.min.css'; ?>" >     
     <!-- 为了友好的界面显示，马上用到的样式需要阻塞加载 -->
     <link rel="stylesheet" type="text/css" href="<?php echo COMMON_PATH.'uikit/css/components/search.almost-flat.min.css'; ?>">
     <script src="<?php echo COMMON_PATH.'jquery.min.js'; ?>"></script>
     <script src="<?php echo COMMON_PATH.'uikit/js/uikit.min.js'; ?>"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo HOME_CSS_PATH.'qin.min.css'; ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo HOME_CSS_PATH.'qin.min.css'; ?>" >
     <!-- 非阻塞并发加载js模块 -->
     <script src="<?php echo COMMON_PATH.'headJS/head.load.min.js'; ?>" data-headjs-load="<?php echo HOME_JS_PATH.'init.js'; ?>"></script>
 </head>

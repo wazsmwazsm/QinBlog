@@ -9,10 +9,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta charset="utf-8">
     <!-- 响应式页面设置 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="MrQin"/>
+    <meta name="author" content="MrQin">
     <title>Qinblog Login</title>
+    <link href="<?php echo base_url(IMG_PATH.'favicon.ico'); ?>" rel="icon" type="image/x-icon">
     <!-- 添加uikit和jquery -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(COMMON_PATH.'uikit/css/uikit.almost-flat.min.css'); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(COMMON_PATH.'uikit/css/uikit.almost-flat.min.css'); ?>" >
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(COMMON_PATH.'uikit/css/components/form-advanced.almost-flat.min.css'); ?>">
     <script src="<?php echo base_url(COMMON_PATH.'jquery.min.js'); ?>"></script>
     <script src="<?php echo base_url(COMMON_PATH.'uikit/js/uikit.min.js'); ?>"></script>
