@@ -226,7 +226,7 @@ class Article_model extends CI_Model {
             $this->db->group_end();      
         }
 
-        $this->db->group_by('comment.article_id');
+        $this->db->group_by('article.article_id');
 
         if($select_con['order_by'] !== NULL) {
 
