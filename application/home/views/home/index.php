@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php else: ?>
 
 <!-- 轮播幻灯片 -->
-<div id="carousel" class="uk-slidenav-position" data-uk-slideshow="{animation: 'scale'}">  
+<div id="carousel" class="uk-slidenav-position" data-uk-slideshow="{animation: 'scale'}" style="max-height:278px;overflow: hidden;">  
     <ul class="uk-slideshow uk-overlay-hover">
         <?php foreach($hot_articles as $hot_article): ?>
         <li>
