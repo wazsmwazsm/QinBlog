@@ -48,7 +48,16 @@ if (!function_exists('check_token')){
         switch ($api_from) {
             case 'weibo':
                 $url = 'https://api.weibo.com/account/get_uid.json?access_token='.$access_token;
-                break;          
+                $api_uid = 'uid';
+                break; 
+            case 'github':
+                $url = 'https://api.github.com/user?access_token='.$access_token; 
+                $api_uid = 'id'; 
+                break;
+            case 'qq':
+                $url = 'https://graph.qq.com/oauth2.0/me?access_token='.$access_token; 
+                $api_uid = 'openid';   
+                break;     
             default:            
                 break;
         }
@@ -75,8 +84,12 @@ if (!function_exists('check_token')){
         $response = curl_exec($curl); 
         curl_close($curl);
 
+        // qq获取openid的接口返回的不是标准的json
+        preg_match("/.*(\{[^\}]*\}).*/", $response, $json_response);
+        $response = $api_from == 'qq' ? $json_response[1] : $response;
+
         // 验证用户登陆状态
-        if($uid == NULL || json_decode($response, TRUE)['uid'] != $uid){
+        if($uid == NULL || json_decode($response, TRUE)[$api_uid] != $uid){
             return FALSE;
         }
 

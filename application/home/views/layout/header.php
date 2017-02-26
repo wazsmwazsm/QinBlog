@@ -30,6 +30,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo COMMON_PATH.'jquery.min.js'; ?>"></script>
     <script src="<?php echo COMMON_PATH.'uikit/js/uikit.min.js'; ?>"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo HOME_CSS_PATH.'qin.min.css'; ?>" >
+    <!-- 幻灯片组件，为了友好显示为阻塞加载 -->
+    <link rel="stylesheet" type="text/css" href="<?php echo COMMON_PATH.'uikit/css/components/slideshow.almost-flat.min.css'; ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo COMMON_PATH.'uikit/css/components/slidenav.almost-flat.min.css'; ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo COMMON_PATH.'uikit/css/components/dotnav.almost-flat.min.css'; ?>">
+    <script src="<?php echo COMMON_PATH.'uikit/js/components/slideshow.min.js'; ?>"></script>
+
+    <!-- QQ -->
+    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="APPID" data-redirecturi="your redirecturi" charset="utf-8" data-callback="true"></script>
     <!-- 非阻塞并发加载js模块 -->
     <script src="<?php echo COMMON_PATH.'headJS/head.load.min.js'; ?>" data-headjs-load="<?php echo HOME_JS_PATH.'init.js'; ?>"></script>
 </head>

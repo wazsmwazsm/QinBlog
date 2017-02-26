@@ -98,7 +98,7 @@
                                 三方登陆方法
      ========================================================================== */
 
-    var user_info = {img : '',name : ''};   // 登陆用户信息对象
+    var user_info = {img : '', name : '', uid : 0, access_token : 0};   // 登陆用户信息对象
 
     var LG_func = {
 
@@ -114,10 +114,22 @@
          * @return  null       
          */
         show_user : function(img, name) {
+
+            var logout_button = '';
+            if(WB2.checkLogin()) {
+                logout_button = '<span class="logout-user" ' +
+                'onclick="WB2.logout(function() {window.location.reload();});">退出</span>';
+            } else if (hello('github').getAuthResponse()) {
+                logout_button = '<span class="logout-user" ' +
+                'onclick="hello(\'github\').logout().then(function() {window.location.reload();});">退出</span>';
+            } else if (QC.Login.check()) {
+                logout_button = '<span class="logout-user" ' +
+                'onclick="QC.Login.signOut();window.location.reload();">退出</span>';
+            }
+
             commentDialogOBJ.find(".button-face").after('<span class="login-user">' +
                 '<img src="' + img + '">' + 
-                name + '</span>'+
-                '<span class="logout-user" onclick="WB2.logout(function() { window.location.reload();})">退出</span>');
+                name + '</span>'+ logout_button);
         },
 
         /**
@@ -130,13 +142,38 @@
          * @return  null       
          */
         get_user_info : function() {
+
+            // weibo
             if(WB2.checkLogin()) {
                 return {
-                    access_token : WB2._config.access_token,
-                    uid : WB2._config.uid,
+                    access_token : user_info.access_token,
+                    uid : user_info.uid,
                     img : user_info.img,
                     name : user_info.name,
                     api_from : 'weibo'
+                   };
+            }
+
+            // qq
+            if(QC.Login.check()) {
+
+                return {
+                    access_token : user_info.access_token,
+                    uid : user_info.uid,
+                    img : user_info.img,
+                    name : user_info.name,
+                    api_from : 'qq'
+                };
+            }
+
+            // Github
+            if(hello('github').getAuthResponse()) {
+                return {
+                    access_token : user_info.access_token,
+                    uid : user_info.uid,
+                    img : user_info.img,
+                    name : user_info.name,
+                    api_from : 'github'
                    };
             }
 
@@ -163,8 +200,11 @@
                         if(bStatus) {
                             user_info.img = oResult.profile_image_url;
                             user_info.name = oResult.screen_name;
+                            user_info.uid = WB2._config.uid;
+                            user_info.access_token = WB2._config.access_token;
                             // 显示用户登陆信息
                             LG_func.show_user(user_info.img, user_info.name);
+                            
                         }
                     }, {
                         uid : WB2._config.uid
@@ -177,8 +217,39 @@
                 return true;
             }
 
-            //    其他三方登陆验证
-            //    。。。     
+            // QQ 登陆验证
+            if(QC.Login.check()) {
+                QC.api("get_user_info", {})  
+                .success(function(s) {//成功回调  
+                    user_info.img = s.data.figureurl;
+                    user_info.name = s.data.nickname;
+                    
+                    // 显示用户登陆信息
+                    LG_func.show_user(user_info.img, user_info.name);
+                });
+                QC.Login.getMe(function(openId, accessToken) {
+                    user_info.uid = openId;
+                    user_info.access_token = accessToken;
+                });
+
+                return true;
+            }
+
+            // Github登陆验证
+            var g_login_info = hello('github').getAuthResponse();
+
+            if(g_login_info) {
+                hello('github').api('me').then(function(json) {
+                    user_info.img = json.thumbnail;
+                    user_info.name = json.name;
+                    user_info.uid = json.id;
+                    user_info.access_token = g_login_info.access_token;
+                    // 显示用户登陆信息
+                    LG_func.show_user(user_info.img, user_info.name);
+                });
+
+                return true;
+            }     
 
             return false;
         },
@@ -207,7 +278,46 @@
                 });
             });        
         },
+        /**
+         * login_qq
+         * 
+         * QQ登陆控件
+         *
+         * @used-by LG_func.login()
+         * @return  null       
+         */
+        login_qq : function() {                               
 
+            QC.Login({
+               btnId:"qqLoginBtn",  
+               size: "A_M"
+            }, function(reqData, opts) {
+                window.location.reload();
+            }, function(opts) {
+                window.location.reload();
+            });       
+        },
+        /**
+         * login_github
+         * 
+         * github登陆控件
+         *
+         * @used-by LG_func.login()
+         * @return  null       
+         */
+        login_github : function() {     
+
+            $('#github_connect_btn').click(function() {
+                var github = hello('github');
+                github.login().then(function() {                   
+                    return github.api('me');
+                })
+                .then(function(p) {
+                    window.location.reload();
+                });
+            });
+                    
+        },
         /**
          * login
          * 
@@ -221,18 +331,21 @@
          */
         login : function() {
             // 需求加载
-            commentOBJ.attr('xmlns:wb','http://open.weibo.com/wb');
+            commentOBJ.attr('xmlns:wb', 'http://open.weibo.com/wb');
 
             // 判断登陆
             if( ! LG_func.login_vertify()) {
 
                 commentOBJ.append('<div id="login_window" class="uk-modal">'+
                     '<div class="uk-modal-dialog"><a class="uk-modal-close uk-close"></a>'+
-                    '<h3>请先登陆哦</h3><div id="wb_connect_btn"></div>'+
-                    '</wb:login-button></div></div>') ;
+                    '<h3>请先登陆哦</h3>'+
+                    '<div id="wb_connect_btn" style="margin-bottom:20px;"></div>'+
+                    '<span id="qqLoginBtn" style="display:block;margin-bottom:20px;"></span>'+
+                    '<img src="/Public/img/github_login.png" id="github_connect_btn" style="display:block;cursor:pointer;"></img>'+
+                    '</div></div>') ;
 
                 // 提交事件解绑
-                commentOBJ.find('#comment_dialog, #comment_list').off('click','.button-submit');
+                commentOBJ.find('#comment_dialog, #comment_list').off('click', '.button-submit');
 
                 /* 未登录提示事件 */
                 commentOBJ.on('focus', '.comment-text', function(event) {
@@ -250,6 +363,11 @@
 
                 // 微博
                 LG_func.login_weibo();
+                // QQ
+                LG_func.login_qq();
+                // Github
+                LG_func.login_github();
+
             }
             
         }

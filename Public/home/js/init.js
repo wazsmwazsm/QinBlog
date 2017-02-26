@@ -29,11 +29,7 @@
         /* 手风琴 */
         path.uikit + 'css/components/accordion.almost-flat.min.css',
         path.uikit + 'js/components/accordion.min.js',
-        /* 幻灯片组件 */
-        path.uikit + 'css/components/slideshow.almost-flat.min.css',
-        path.uikit + 'js/components/slideshow.min.js',
-        path.uikit + 'css/components/slidenav.almost-flat.min.css',
-        path.uikit + 'css/components/dotnav.almost-flat.min.css'); 
+    ); 
 
     // Editor.md lib and plugins
     head.load({editormd : path.editormd + 'editormd.min.js'}, function() {
@@ -57,7 +53,21 @@
 
     head.load(path.user_css + 'plugins/comment.min.css');
 
-    head.load('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=APPID');
+    /* comment system */
+
+    // weibo
+    head.load('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=appkey');
+    // hello.js github\google\twitter...
+    head.load(path.common_lib + 'helloJS/hello.all.min.js', function(){
+        var GITHUB_CLIENT_ID = {
+            'your domain' : 'appkey'
+        }[window.location.hostname];
+        hello.init({
+            github : GITHUB_CLIENT_ID
+        },{
+            redirect_uri : 'your redirect url',
+        });
+    });
     head.load(path.user_plugins + 'comment/jquery.comment.min.js');
 
 
