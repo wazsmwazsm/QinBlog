@@ -105,7 +105,7 @@ openssl、mbstring
 > \<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="APPID" data-redirecturi="redirecturi" charset="utf-8" data-callback="true"\>\</script\>的APPID和redirecturi
 > 改为自己的APPID和回调页面。
 
-或者你不想要三方登录，可以修改代码做成自己想要的评论系统。评论、留言jQuery插件为Public/home/js/plugins/comment/jquery.comment.js, 后端处理文件在home和admin两个应用的controller中。
+> 或者你不想要三方登录，可以修改代码做成自己想要的评论系统。评论、留言jQuery插件为Public/home/js/plugins/comment/jquery.comment.js, 后端处理文件在home和admin两个应用的controller中。
 
 > ##### 权限
 
