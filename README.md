@@ -4,7 +4,7 @@ An open source of blog
 > 基于codeigniter、UIKIT、editormd的一款开源个人博客系统
 > 用于个人发布、管理、展示博客，遵循MIT协议
 
-### Tips: QinBlog现在完成了评论、留言系统，已经是一款完整的开源软件啦。暂时只支持微博三方登录
+### Tips: QinBlog现在完成了评论、留言系统，已经是一款完整的开源软件啦。支持微博、QQ、Github三方登录
 ### 主页
 [www.qinblog.net](http://www.qinblog.net "www.qinblog.net")
 
@@ -76,9 +76,36 @@ openssl、mbstring
 
 > 后台默认账户：admin，密码：adminqinblog
 
-> 想使用评论、留言功能，先要去微博申请APPID和网站认证，将Public/home/js/init.js中 head.load('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=APPID');
+> 想使用评论、留言功能，
+先要去微博、QQ、Github相关开放平台申请APPID和网站认证，
 
-> 中的APPID换为自己的APPID。或者你不想要三方登录，可以修改代码做成自己想要的评论系统。评论、留言jQuery插件为Public/home/js/plugins/comment/jquery.comment.js, 后端处理文件在home和admin两个应用的controller中。
+> #### 微博
+
+> 将Public/home/js/init.js中 head.load('http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=APPID');
+
+> 中的APPID换为自己的APPID。
+
+> #### GitHub
+
+> Public/home/js/init.js中
+```
+        var GITHUB_CLIENT_ID = {
+            'your domain' : 'appkey'  换为自己的域名和APPKEY
+        }[window.location.hostname];
+        hello.init({
+            github : GITHUB_CLIENT_ID
+        },{
+            redirect_uri : 'your redirect url', 换为自己回调页面
+        });
+```       
+
+> #### QQ
+
+> application/home/view/layout/header.php中
+> \<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="APPID" data-redirecturi="redirecturi" charset="utf-8" data-callback="true"\>\</script\>的APPID和redirecturi
+> 改为自己的APPID和回调页面。
+
+或者你不想要三方登录，可以修改代码做成自己想要的评论系统。评论、留言jQuery插件为Public/home/js/plugins/comment/jquery.comment.js, 后端处理文件在home和admin两个应用的controller中。
 
 > ##### 权限
 
