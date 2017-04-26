@@ -11,11 +11,17 @@ An open source of blog
 ### Update
 
 ### 2017-4-26
+
 更新了 sql 中 admin 密码，之前的有误。如果还是登陆不了，那么可以尝试把密码进行 sha256 签名，再进行 password_hash 函数加密后存入数据库中方可。
+
 更新了前台 js 的一个语法错误。
+
 QQ 的登陆问题：我是境外服务器，so... 一直不给我上线也是醉了，最近没时间看这个。
+
 微博登录 的二维码会返回错误，目前不清楚原因，有空我会去查查资料。
+
 最近工作了，更博会慢。之后有时间也会更新一些新功能，发一些学到的东西。
+
 谢谢大家的 star 
 
 [Update log](https://github.com/wazsmwazsm/QinBlog/blob/master/UPDATE.md)
