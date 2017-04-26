@@ -28,7 +28,7 @@
         path.uikit + 'js/components/pagination.min.js',
         /* 手风琴 */
         path.uikit + 'css/components/accordion.almost-flat.min.css',
-        path.uikit + 'js/components/accordion.min.js',
+        path.uikit + 'js/components/accordion.min.js'
     ); 
 
     // Editor.md lib and plugins
