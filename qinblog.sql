@@ -82,7 +82,7 @@ CREATE TABLE `qinblog_manager` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `qinblog_manager` (`id`, `username`, `password`, `timestamp`, `ip`) VALUES ('1', 'admin', '$2y$10$PezMRaSpBNqERWbGq0oR8eRvJWQxT0q67iCjsd/Xt1Ev6iIcxrvHe', '1485077137', '1953717852');
+INSERT INTO `qinblog_manager` (`id`, `username`, `password`, `timestamp`, `ip`) VALUES ('1', 'admin', '$2y$10$PSGiz8WNU.3m4ULo4zBNv.B/4No54oS3iwLdCc4QPSQ9VGTVLcpMS', '1485077137', '1953717852');
 
 
 #
