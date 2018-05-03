@@ -50,15 +50,15 @@ class Article_model extends CI_Model {
      */
     public function show_article($article_id = NULL) {
 
-        /* 连表查询显示分类名称 */
-
-        $this->db->select('article.* , category.category_name, COUNT(qinblog_comment.article_id) AS comment_count');
-        $this->db->from('article');
-        $this->db->join('category', 'article.category_id = category.category_id');
-        $this->db->join('comment', 'article.article_id = comment.article_id', 'left');
-
         // 取一条信息 
         if(NULL !== $article_id) {
+            /* 连表查询显示分类名称 */
+
+            $this->db->select('article.* , category.category_name, COUNT(qinblog_comment.article_id) AS comment_count');
+            $this->db->from('article');
+            $this->db->join('category', 'article.category_id = category.category_id');
+            $this->db->join('comment', 'article.article_id = comment.article_id', 'left');
+
             $this->db->where('article.article_id', $article_id);
 
             $this->db->group_by('comment.article_id');
@@ -67,11 +67,12 @@ class Article_model extends CI_Model {
             return $query->row_array();
         }
 
-        $this->db->group_by('comment.article_id');
-
+        $this->db->select('article.* , category.category_name');
+        $this->db->from('article');
+        $this->db->join('category', 'article.category_id = category.category_id');
         // 取全部数组 
         $query = $this->db->order_by('publish_time', 'DESC')->get(); 
-
+            
         return $query->result_array();
 
     }

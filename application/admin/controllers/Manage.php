@@ -59,7 +59,9 @@ class Manage extends CI_Controller {
         // 页面脚本
         $data['script'] = "<script type=\"text/javascript\">
             head.ready('admintool', function(){
-                $('#load_content').load($('#load_content').data('dashboard'));
+                $('#load_content').load($('#load_content').data('dashboard'), function() {
+                    $('#on_load').remove();
+                });
                 // 绑定所有满足条件的a标记，使其执行无刷新显示 
                 $('body').on('click', 'a[href][href!=\"\"][target!=\"_blank\"][class!=\"no-load\"]:not(a[href^=\"#\"]):not(a[href^=\"javascript\"])', function(){
                     // 不绑定editormd编辑器和editormd解析内容中的a标记

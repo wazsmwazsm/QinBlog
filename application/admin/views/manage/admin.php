@@ -116,8 +116,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div><!-- 导航菜单  -->
                 
                 <!-- 网站内容 -->
-                <div class="uk-width-medium-4-5" id="load_content" data-dashboard="<?php echo site_url('Manage/dash'); ?>"></div>
-                
+                <div class="uk-width-medium-4-5" id="load_content" data-dashboard="<?php echo site_url('Manage/dash'); ?>">
+                    <div class="uk-grid">
+                        <!-- 后台信息 -->
+                        <div class="uk-width-medium-1-1">
+                            <div class="uk-panel uk-panel-box">     
+                                <div id="on_load" style="text-align:center;font-size:24px;opacity:0.8;">
+                                    <i class="uk-icon-spin uk-icon-spinner"></i><span> 加载中...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             
             <!-- 抽屉 --><!-- 用于小页面显示 -->

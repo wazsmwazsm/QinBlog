@@ -26,7 +26,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <hr>
             <!-- 文章内容 -->
             <div id="article_view" style="padding: 0px;background-color: #fafafa;">
-               <textarea style="display:none;"><?php echo $article['article_content']; ?></textarea>               
+                <div id="arc_on_load" style="text-align:center;font-size:24px;opacity:0.8;">
+                    <i class="uk-icon-spin uk-icon-spinner"></i><span> 加载中...</span>
+                </div>
+                <textarea style="display:none;"><?php echo $article['article_content']; ?></textarea>               
             </div>
             <hr><br><br>
             <!-- 点赞 -->
@@ -86,5 +89,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             flowChart       : true,  
             sequenceDiagram : true,  
         });
+        $('#arc_on_load').remove();
     });  
 </script>
