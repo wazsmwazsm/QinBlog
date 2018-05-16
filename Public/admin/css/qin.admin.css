@@ -238,3 +238,20 @@ a:active {
   padding: 20px;
   color: #aaa;
 }
+
+/* 覆盖 uikit 的严格 pre > code 代码区域要求，避免和 codemirror 等插件冲突 */
+:not(pre) > code,
+:not(pre) > kbd,
+:not(pre) > samp {
+  /* 1 */
+  font-size: 12px;
+  /* 2 */
+  font-family: Consolas, monospace, serif;
+  /* 3 */
+  color: #dd0055;
+  white-space: pre-wrap;  /* 这里是冲突的地方，使用 pre-wrap 代替 nowrap */
+  padding: 0 4px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  background: #fafafa;
+}
