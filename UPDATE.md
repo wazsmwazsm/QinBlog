@@ -2,6 +2,10 @@
 
 ### 2018-5-3
 
+解决 uikit 严格的 pre > code 样式和 codemirror 的冲突
+
+### 2018-5-3
+
 修复文章备份的 sql 语句 bug
 
 为文章加载和后台 dashboard 加载添加 loding 动画
