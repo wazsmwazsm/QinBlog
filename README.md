@@ -101,7 +101,13 @@ openssl、mbstring
         },{
             redirect_uri : 'your redirect url', 换为自己回调页面
         });
-```       
+```  
+
+回调页面 github_cb.html 中写
+```html
+<!DOCTYPE html>
+<script src="/Public/common_lib/helloJS/hello.all.min.js"></script>
+```
 
 > #### QQ
 
