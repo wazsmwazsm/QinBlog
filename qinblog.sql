@@ -17,7 +17,7 @@ CREATE TABLE `qinblog_article` (
   `is_top` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否置顶',
   `article_view` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '查看人数',
   `article_like` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '点赞数',
-  `article_desc` medium text NOT NULL COMMENT '文章简述',
+  `article_desc` mediumtext NOT NULL COMMENT '文章简述',
   `article_content` mediumtext NOT NULL COMMENT '文章内容',
   PRIMARY KEY (`article_id`),
   UNIQUE KEY `article_name` (`article_name`),
